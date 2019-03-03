@@ -1,6 +1,4 @@
-import coin
-
-test = {'a':1, 'b':2,'c':3}
+from coin import Coin
 
 
 class Portfolio(object):
@@ -12,15 +10,19 @@ class Portfolio(object):
         self.pnl_unrealised_d_amt = None
         self.pnl_unrealised_pct = None
         self.pnl_realised_d_amt = None
-        self.total_fees = None
+        self.fees = None
 
-    def _add_coin(self, ticker, units, price, date=None):
+        self._update_portfolio()
+
+
+    def _add_coin(self, ticker, units, price=None, date=None):
         if ticker not in self.coins:
 
-            self.coins[coin] = Coin(*args)
+            self.coins[coin] = Coin(ticker, price, date)
             self._update_portfolio()
 
         pass
+
 
     def _update_portfolio(self):
         '''
@@ -28,6 +30,9 @@ class Portfolio(object):
         '''
         for coin in self.coins:
             # Update with current prices
-            self.coin.update_market_val()
+            self.coin._update_market_val()
 
-    def trade_coin(self, ticker, side, units)
+
+
+    def trade_coin(self, ticker, side, units, date=None):
+        pass
