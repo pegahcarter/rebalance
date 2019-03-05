@@ -1,9 +1,17 @@
 from coin import Coin
+import ccxt
+
+api = pd.read_csv('../api.csv')
+binance = ccxt.binance({'options': {'adjustForTimeDifference': True},
+			                        'apiKey': api['apiKey'][0],
+			                        'secret': api['secret'][0]})
 
 
 class Portfolio(object):
 
-    def __init__(self, coins=None, start_d_amt=None, transactions=None):
+    def __init__(self, simulated=None, backtest=None, coins=None):
+        self.simulated = simulated
+        self.backtest = backtest
         self.cost = None
         self.market_val = None
         self.coins = {}
@@ -12,19 +20,23 @@ class Portfolio(object):
         self.pnl_realised_d_amt = None
         self.fees = None
 
+        # self._update_portfolio()
+
+
+    def _add_coin(self, coin, units):
+
+        self.coins[coin] = Coin(coin, units, simulated)
         self._update_portfolio()
 
 
-    def _add_coin(self, ticker, units, price=None, date=None):
-        if ticker not in self.coins:
-
-            self.coins[coin] = Coin(ticker, price, date)
-            self._update_portfolio()
-
-        pass
+    def _fetch_units(self):
+        if self.simulated:
+            return 1000 / self.init_price
+        else:
+            return balance[self.coin]['total']
 
 
-    def _update_portfolio(self):
+    def refresh(self):
         '''
         Updates the market value of all coins in our portfolio
         '''

@@ -1,40 +1,36 @@
 import ccxt
+import pandas as pd
 
-api = ccxt.binance()
+
 
 
 class Coin(object):
 
-    def __init__(self, ticker, units, date=None):
-        self.ticker = ticker
-        self.init_price = None
-        self.init_units = units
-        self.current_units = units
-        self.current_price = self._fetch_price()
-        self.transactions = {}
+    def __init__(self, coin, units, simulated=False):
+        self.coin = coin
+        self.simulated = simulated
+        # self.init_units = units
+        # self.current_units = units
+        self.init_price = self._fetch_price()
+        # self.transactions = {}
         self.pnl_unrealised_d_amt = None
         self.pnl_unrealised_pct = None
         self.pnl_realised_d_amt = None
-        self.cost = None
+        self.cost = self.init_price * self.units
         self.fees = None
 
 
-    def update_market_val(self):
+    def _update_market_val(self):
         self.current_price = self._fetch_price()
+        self.init_units = self._fetch_units()
         self.market_val = self.current_price * self.current_units
 
 
     def _fetch_price(self):
-        if self.date:
-            # TODO: add param to get price based on date
-            # NOTE: Can I put the date critera into fetch_ticker?
+        if self.simulated:
+            return pd.read_csv('../data/historical/prices.csv')[coin][0]
         else:
-            btc_price = float(api.fetch_ticker('BTC/USDT')['info']['lastPrice']
-            if self.ticker == 'BTC':
-                return btc_price
-            else:
-                btc_ratio = float(api.fetch_ticker(coin + '/BTC')['info']['lastPrice'])
-                return btc_ratio
+            return float(binance.fetch_ticker(coin + '/USDT')['info']['lastPrice'])
 
 
     def transact(self, side, units):
