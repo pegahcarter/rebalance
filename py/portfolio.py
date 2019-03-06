@@ -1,5 +1,6 @@
-from coin import Coin
 import ccxt
+import pandas as pd
+from coin import Coin
 
 api = pd.read_csv('../api.csv')
 binance = ccxt.binance({'options': {'adjustForTimeDifference': True},
@@ -19,31 +20,35 @@ class Portfolio(object):
         self.pnl_unrealised_pct = None
         self.pnl_realised_d_amt = None
         self.fees = None
+		self.binance = binance
 
-        # self._update_portfolio()
-
-
-    def _add_coin(self, coin, units):
-
-        self.coins[coin] = Coin(coin, units, simulated)
-        self._update_portfolio()
+        self._update_portfolio(coins)
 
 
-    def _fetch_units(self):
-        if self.simulated:
-            return 1000 / self.init_price
-        else:
-            return balance[self.coin]['total']
+	def _update_portfolio(self, coins):
+		if not self.simulated:
+			coins = [asset['asset']
+					 for asset in balance['info']['balances']
+					 if (float(asset['free']) > 0)]
+
+		for coin in coins:
+			self._add_coin(coin)
+
+
+    def _add_coin(self, coin):
+        self.coins[coin] = Coin(coin, self.binance, self.simulated)
 
 
     def refresh(self):
-        '''
-        Updates the market value of all coins in our portfolio
-        '''
         for coin in self.coins:
             # Update with current prices
             self.coin._update_market_val()
 
+
+	def rebalance(self, coins_to_rebalance, d_amt):
+		# a. market value should already be updated
+		# b. we need to still determine units to trade
+		pass
 
 
     def trade_coin(self, ticker, side, units, date=None):
