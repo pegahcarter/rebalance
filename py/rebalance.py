@@ -8,10 +8,16 @@ coins = ['BTC', 'ETH', 'XRP', 'LTC']
 
 def run(portfolio):
 
-    portfolio.refresh() # TODO
+    # TODO: what do we need to update?
+    portfolio.refresh()
+
     avg_weight = 1.0/len(portfolio.coins)
+
+    # TODO: should there be other functions to figure out trade weight?
     trade_weight = ???
+
     d_amt = trade_weight * portfolio.market_val
+
     if d_amt < 20:
         print('Trade value is less than $20.  Rebalance complete!')
         return

@@ -1,4 +1,5 @@
 "rebalanced": {
+    "hist_prices": "pd.read_csv(...)",
     "simulated": false,
     "backtest": false,
     "binance": "binance",
@@ -11,10 +12,11 @@
     "fees": 2.50,
     "fee_rate": 0.0075,
     "slippage_rate": 0.02,
-    "num_transactions": 1,
+    "tx_count": 1,
     "coins": {
         "ETH": {
             "current_price": 100,
+            "hist_prices": "hist_prices",
             "cost": "cum_cost"[-1],
             "units": "cum_units"[-1],
             "market_val": 0,

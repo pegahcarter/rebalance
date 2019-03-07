@@ -3,28 +3,20 @@ import pandas as pd
 
 class Coin(object):
 
-    def __init__(self, coin, binance, simulated=None):
+    def __init__(self, coin, tx_count, simulated=False, hist_prices=None):
+        self.ticker = coin
+        self.hist_prices = hist_prices
+        self.current_price = None
+        self.market_val = 0
 
-        self.coin = coin
-        self.simulated = simulated
+        self.pnl_unrealised_d_amt = 0
+        self.pnl_unrealised_pct = 0
+        self.pnl_realised_d_amt = 0
+        self.fees = 0
 
-        if simulated:
-            self.hist_prices = pd.read_read_csv('../data/historical/prices.csv')[coin].tolist()
+        self.transactions = []
 
-        self.binance = binance
-        self.balance = self.binance.fetchBalance()
-        self.init_price = self._fetch_price()
-        self.init_units = self._fetch_units()
-        self.init_cost = self.init_price * self.init_units
-        self.market_val = self.init_cost
 
-        # self.current_units = units
-        # self.transactions = {}
-        # self.pnl_unrealised_d_amt = None
-        # self.pnl_unrealised_pct = None
-        # self.pnl_realised_d_amt = None
-        # self.cost = self.init_price * self.units
-        # self.fees = None
 
 
     def _update_market_val(self):
@@ -34,16 +26,18 @@ class Coin(object):
 
 
     def _fetch_price(self):
-        if self.simulated:
+        if self.hist_prices is not None:
             return self.hist_prices[0]
         else:
+            # NOTE: what about tether??
             return float(self.binance.fetch_ticker(coin + '/USDT')['info']['lastPrice'])
 
 
     def _fetch_units(self):
         if self.simulated:
-            return 1000 / self.init_price
+            return 1000 / self.hist_prices[0]
         else:
+            # NOTE: should balance be passed into this function as a @param?
             return self.balance[self.coin]['total']
 
 
