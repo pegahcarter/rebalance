@@ -4,11 +4,6 @@ from coin import Coin
 
 
 hist_prices = pd.read_csv('../data/historical/prices.csv')
-api = pd.read_csv('../api.csv')
-binance = ccxt.binance({'options': {'adjustForTimeDifference': True},
-			                        'apiKey': api['apiKey'][0],
-			                        'secret': api['secret'][0]})
-
 
 class Portfolio(object):
 
@@ -16,8 +11,6 @@ class Portfolio(object):
 		self.hist_prices = hist_prices
         self.simulated = simulated
 		self.backtest = backtest
-		self.binance = binance
-		self.balance = binance.fetchBalance()
         self.cost = 0
         self.market_val = 0
         self.pnl_unrealised_d_amt = 0
@@ -31,6 +24,8 @@ class Portfolio(object):
 		self.coins = {}
 
         self._update_portfolio(coins)
+
+
 
 
 	def _update_portfolio(self, coins):
