@@ -1,3 +1,7 @@
+# rebalance
+## Contributors: Chris Wallwork, Carter Carlson
+
+###
 This repository merges two similar repositories:
 * __[crypto-simulations](https://github.com/cartercarlson/crypto-simulations)__
   * Simulates rebalancing a randomly selected basket of 5 coins 250 times and records the total value of the portfolio
