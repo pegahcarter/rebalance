@@ -2,8 +2,6 @@
     "hist_prices": "pd.read_csv(...)",
     "simulated": false,
     "backtest": false,
-    "binance": "binance",
-    "balance": "binance.fetchBalance()",
     "cost": 1000,
     "market_val": 1500,
     "pnl_unrealised_d_amt": 69,
@@ -13,6 +11,19 @@
     "fee_rate": 0.0075,
     "slippage_rate": 0.02,
     "tx_count": 1,
+    "exchange": {
+      "binance": "ccxt.binance(...)",
+      "tickers": "fetch_tickers()",
+      "balance": "fetchBalance()['free']",
+      "methods": [
+        "update_balance()",
+        "fetch_ticker()",
+        "fetch_price()",
+        "calculate_units()",
+        "ticker_exists()",
+        "execute_trade()"
+      ]
+    },
     "coins": {
         "ETH": {
             "current_price": 100,
