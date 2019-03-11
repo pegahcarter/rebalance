@@ -1,7 +1,10 @@
 # rebalance
-## Contributors: Chris Wallwork, Carter Carlson
 
-###
+### Contributors: Chris Wallwork, Carter Carlson
+
+---
+
+### Introduction
 This repository merges two similar repositories:
 * __[crypto-simulations](https://github.com/cartercarlson/crypto-simulations)__
   * Simulates rebalancing a randomly selected basket of 5 coins 250 times and records the total value of the portfolio
@@ -11,17 +14,35 @@ This repository merges two similar repositories:
   * Rebalances a specific basket of coins and captures details of the transactions
   * Can be simulated or used for personal rebalancing
 
-While the two repositories have similar purposes, they were made separately and have different code structures:
-* __crypto-simulations__
-  * _Code structure_: many separate lists and zips the lists together  
-  * _Pros_: optimizes simulation speed for hundreds of backtests
-  * _Cons_: Hard to understand code, not suitable for adding transaction documentation.
-* __transaction-log__
-  * _Code structure_: portfolio object, methods for portfolio class are outside the class in functions
-  * _Pros_: accurate documentation of transactions, code is easier to follow
-  * _Cons_: cannot scale to multiple backtests, calculations still needed for summary, outside functions for the portfolio should be a method inside the portfolio class
+---
+### Repository Comparison
+While the two repositories have similar purposes, they were made separately and have different code structures.
+* __Code Structure__
+  * _crypto-simulations_:
+    * Utilizes many separate lists
+    * Zips the lists together
+  * _transaction-log_:
+    * Portfolio object
+    * Methods for portfolio class are outside the class in functions 
+* __Pros__
+  - _crypto-simulations_
+    * Optimizes simulation speed for a large number of backtests
+    * Compares rebalancing periods and the performance of randomly selected coin portfolios
+  * _transaction-log_:
+    * Documents relevant data of every transaction over the simulation period for a specific portfolio
+    * Can be used to rebalance a real portfolio on an exchange
+
+* __Cons__
+  * _crypto-simulations_:
+    * Only simulates rebalancing: can't be used for personal rebalancing
+    * Unable to store data from transactions
+    * Code is lightweight, making it hard to follow
+  * _transaction-log_:
+    * Cannot scale to multiple backtests
+    * Portfolio methods should be inside the class, not outside functions
 
 Once completed, the new code structure will have:
 * A portfolio object summarizing performance, including a list of coin objects
+* Inside the portfolio, an exchange object with current balances and prices
 * Coin objects for each coin in the portfolio, including coin performance and transactions
 * A transaction object inside each coin, containing all relevant coin transactions
