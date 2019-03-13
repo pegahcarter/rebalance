@@ -2,9 +2,9 @@
 
 class Coin(object):
 
-    def __init__(self, coin, tx_count, simulated=False, hist_prices=None):
-        self.ticker = coin
-        self.hist_prices = hist_prices
+    def __init__(self, coin, tx_count):
+        # self.ticker = coin
+        # self.hist_prices = hist_prices
         self.current_price = None
         self.market_val = 0
 

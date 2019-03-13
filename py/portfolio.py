@@ -4,29 +4,30 @@ from coin import Coin
 from exchange import Exchange
 
 
-hist_prices = pd.read_csv('../data/historical/prices.csv')
+
+class Portfolio(Exchange):
+
+    def __init__(self, start_amt=None, simulation=False, coins=None):
+        self.simulation = simulation
+        self.exchange = Exchange(simulation, coins)
+        # self.hist_prices = hist_prices
 
 
-class Portfolio(object):
 
-    def __init__(self, coins=None, simulated=False, backtest=False):
-		self.hist_prices = hist_prices
-        self.simulated = simulated
-		self.backtest = backtest
-        self.exchange = Exchange(simulated, coins)
-        self.cost = 0
-        self.market_val = 0
-        self.pnl_unrealised_d_amt = 0
-        self.pnl_unrealised_pct = 0
-        self.pnl_realised_d_amt = 0
-        self.fees = 0
-		self.fee_rate = 0.0075
-		self.slippage_rate = 0.02
-		self.tx_count = 0
 
-		self.coins = {}
-
-        self._update_portfolio(coins)
+        # self.cost = 0
+        # self.market_val = 0
+        # self.pnl_unrealised_d_amt = 0
+        # self.pnl_unrealised_pct = 0
+        # self.pnl_realised_d_amt = 0
+        # self.fees = 0
+		# self.fee_rate = 0.0075
+		# self.slippage_rate = 0.02
+		# self.tx_count = 0
+        #
+		# self.coins = {}
+        #
+        # self._update_portfolio(coins)
 
 
 
