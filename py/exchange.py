@@ -6,19 +6,18 @@ import ccxt
 # TODO: decide which  properties to inherit from portfolio
 
 
-class Exchange(object):
+class Exchange:
 
 	hist_prices = pd.read_csv('../data/historical/prices.csv')
 
-	def __init__(self, simulation=False, coins=None):
+	def __init__(self, coins, start_amt):
 
-		self.tickers = list(ccxt.binance().fetch_tickers())
-		self.simulation = simulation
+		self.tickers = list(ccxt.binance().fetch_tickers().keys())
 
-		if simulation:
+		if self.simulation:
 			if coins is None:
 				# Pick random coins to backtest portfolio
-				coins = random.sample(coins, 5) # TODO: should I add dynamic # of coins simulated?
+				coins = random.sample(coins, 5) # TODO: Can user decide # of random coins simulated?
 
 			# TODO: Calculate units on day 0- where should this function be? When should it update?
 
@@ -50,19 +49,22 @@ class Exchange(object):
 		   return coin2 + '/' + coin1
 
 
+	def fetch_current_price(self, coin):
+		btc_price = float(self.binance.fetch_ticker('BTC/USDT')['info']['lastPrice'])
+		if coin == 'BTC':
+			return btc_price
+		else:
+			btc_ratio = float(self.binance.fetch_ticker(coin + '/BTC')['info']['lastPrice'])
+			return btc_ratio * btc_price
+
+
+	def fetch_hist_price(self, coin, i):
+		return self.coin.hist_prices[i]
+
+
     def fetch_price(self, coin, date=None):
 		if 'USD' or 'DAI' in coin:
 			return 1.0
-
-		if not self.simulated:
-			btc_price = float(self.binance.fetch_ticker('BTC/USDT')['info']['lastPrice'])
-			if coin == 'BTC':
-				return btc_price
-			else:
-				btc_ratio = float(self.binance.fetch_ticker(coin + '/BTC')['info']['lastPrice'])
-				return btc_ratio * btc_price
-		else:
-			pass # TODO
 
 
 	def fetch_trade_units(self, ticker, d_amt):

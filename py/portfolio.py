@@ -7,9 +7,9 @@ from exchange import Exchange
 
 class Portfolio(Exchange):
 
-    def __init__(self, start_amt=None, simulation=False, coins=None):
+    def __init__(self, simulation=False, coins=None, start_amt=None):
         self.simulation = simulation
-        self.exchange = Exchange(simulation, coins)
+        Exchange.__init__(self, simulation, coins, start_amt)
         # self.hist_prices = hist_prices
 
 

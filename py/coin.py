@@ -1,11 +1,12 @@
 
 
-class Coin(object):
+class Coin:
 
     def __init__(self, coin, tx_count):
-        # self.ticker = coin
-        # self.hist_prices = hist_prices
-        self.current_price = None
+
+        self.hist_prices = super().hist_prices[coin].tolist() # TODO: how to do this?
+        self.price = None
+        self.units = 0
         self.market_val = 0
 
         self.pnl_unrealised_d_amt = 0
@@ -20,7 +21,7 @@ class Coin(object):
 
     def _update_market_val(self):
         self.current_price = self._fetch_price()
-        self.init_units = self._fetch_units()
+        self.units = self._fetch_units()
         self.market_val = self.current_price * self.current_units
 
 
@@ -28,7 +29,7 @@ class Coin(object):
         if self.hist_prices is not None:
             return self.hist_prices[0]
         else:
-            # NOTE: what about tether??
+            # NOTE: what about USDT??
             return float(self.binance.fetch_ticker(coin + '/USDT')['info']['lastPrice'])
 
 
