@@ -1,0 +1,59 @@
+'rebalanced': {
+    'hist_prices': 'pd.read_csv(...)',
+    'simulated': false,
+    'backtest': false,
+    'cost': 1000,
+    'market_val': 1500,
+    'pnl_unrealised_d_amt': 69,
+    'pnl_realised_d_amt': 0,
+    'pnl_unrealsed_pct': 0.09,
+    'fees': 2.50,
+    'fee_rate': 0.0075,
+    'slippage_rate': 0.02,
+    'tx_count': 1,
+    'exchange': {
+      'binance': 'ccxt.binance(...)',
+      'tickers': 'fetch_tickers()',
+      'balance': 'fetchBalance()['free']',
+      'methods': [
+        'update_balance()',
+        'fetch_ticker()',
+        'fetch_price()',
+        'calculate_units()',
+        'ticker_exists()',
+        'execute_trade()'
+      ]
+    },
+    'coins': {
+        'ETH': {
+            'current_price': 100,
+            'hist_prices': 'hist_prices',
+            'cost': 'cum_cost'[-1],
+            'units': 'cum_units'[-1],
+            'market_val': 0,
+            'pnl_unrealised_d_amt': 0,
+            'pnl_realised_d_amt': 'sum(transactions['pnl_realised_d_amt'])',
+            'pnl_unrealsed_pct': 0,
+            'fees': 'sum(transactions['fees'])',
+            'transactions': [
+                {
+                    'id': 1,
+                    'date': 'date in epoch',
+                    'side': 'buy',
+                    'units': 1,
+                    'current_price': 'fetch_price()',
+                    'fees': 'current_price * units * fee_rate',
+                    'prev_units': 'cum_units'[-1],
+                    'cum_units': 0,
+                    'tx_val': 0,
+                    'prev_cost': 'cum_cost'[-1],
+                    'tx_cost':  0,
+                    'tx_cost_per_unit': 0,
+                    'cum_cost': 0,
+                    'pnl_realised_d_amt': 0,
+                    'pnl_realised_pct': 0
+                }
+            ]
+        }
+    }
+}

@@ -1,4 +1,4 @@
-"rebalanced": {
+"portfolio": {
     "hist_prices": "pd.read_csv(...)",
     "simulated": false,
     "backtest": false,
