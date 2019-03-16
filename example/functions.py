@@ -8,31 +8,24 @@ fetch_price(coin)
 calculate_units(coin, price, trade_value_in_usd)
 ticker_exists(coin1, coin2)
 trade(coin1, coin2, trade_value_in_usd)
-
-'''
-
-
-
-def update_market_val():
-'''
-- Updates all market value variables in portfolio
-- This is calculated before every rebalance to determine current coin weighting
 '''
 
 
 def update_balance(portfolio):
 '''
 Purpose:
-
-Variables needed from data.json:
-
+Frequency called:
+Variables needed:
 '''
     pass
 
 
 def update_market_val(portfolio):
 '''
-Purpose:
+Purpose: updates all market value variables in portfolio to determine coin weighting,
+            which triggers rebalancing
+Frequency called: before each rebalance
+Variables needed:
 '''
     pass
 
@@ -40,6 +33,8 @@ Purpose:
 def fetch_ticker(coin1, coin2):
 '''
 Purpose:
+Frequency called:
+Variables needed:
 '''
     pass
 
@@ -47,6 +42,8 @@ Purpose:
 def fetch_price(coin):
 '''
 Purpose:
+Frequency called:
+Variables needed:
 '''
     pass
 
@@ -54,6 +51,8 @@ Purpose:
 def calculate_units(coin, price, trade_value_in_usd):
 '''
 Purpose:
+Frequency called:
+Variables needed:
 '''
     pass
 
@@ -61,6 +60,8 @@ Purpose:
 def ticker_exists(coin1, coin2):
 '''
 Purpose:
+Frequency called:
+Variables needed:
 '''
     pass
 
@@ -68,5 +69,7 @@ Purpose:
 def trade(coin1, coin2, trade_value_in_usd):
 '''
 Purpose:
+Frequency called:
+Variables needed:
 '''
     pass
