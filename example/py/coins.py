@@ -1,0 +1,4 @@
+
+
+class Coins:
+    pass
