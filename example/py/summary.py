@@ -14,8 +14,3 @@ class Summary:
         self.slippage_rate = slippage_rate
         self.tx_count = tx_count
         self.coins = coins
-
-
-
-def update(Summary):
-    pass

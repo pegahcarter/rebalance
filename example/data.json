@@ -86,12 +86,7 @@ portfolio: {
 --------------------
 methods:
 [
-  "update_balance(portfolio)",
-  "update_market_val(portfolio)",
-  "fetch_ticker(coin1, coin2)",
-  "fetch_price(coin)",
-  "calculate_units(coin, price, trade_value_in_usd)",
-  "ticker_exists(coin1, coin2)",
+  "update()"
   "trade(coin1, coin2, trade_value_in_usd)"
 ],
 exchange:
@@ -101,10 +96,13 @@ exchange:
   "binance": "...",
   "tickers": "...",
   "balance": "...",
+  "update_balance()": "..."
 },
 transactions:
 [
   {
+    "fetch_ticker()": "...",
+    "calculate_units()": "...",
     "coin": "ETH",
     "id": "...",
     "date": "...",
@@ -129,6 +127,7 @@ summary:
     "hist_prices": "...",
     "cost": "...",
     "market_val": "...",
+    "update_market_val()": "...",
     "pnl_unrealised_d_amt": "...",
     "pnl_realised_d_amt": "...",
     "pnl_unrealsed_pct": "...",
@@ -143,6 +142,7 @@ coins:
   "ETH":
   {
     "price": "...",
+    "update_price()": "...",
     "hist_prices": "...",
     "cost": "...",
     "units": "...",

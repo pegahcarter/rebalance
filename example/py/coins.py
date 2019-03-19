@@ -14,5 +14,5 @@ class Coins:
         self.fees = fees
 
 
-def update(Coins):
-    pass
+    def fetch_price(self):
+        pass

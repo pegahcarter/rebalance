@@ -21,5 +21,5 @@ class Transactions:
         self.pnl_realised_pct = pnl_realised_pct
 
 
-def update(Transactions):
-    pass
+    def fetch_market_val(self):
+        pass
