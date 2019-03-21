@@ -1,16 +1,31 @@
+import pandas as pd
+self.hist_prices = hist_prices
+hist_prices = pd.read_csv('../../data/historical/prices.csv')
 
 
 class Portfolio:
 
-    def __init__(self, coins=None):
+    def __init__(self, simulated, backtest, coins=None):
+
+
+        self.exchange = Exchange
+
+
+
+        self.simulated = simulated
+        self.backtest = backtest
 
         if coins is None:
-            coins = ???
+            if simulated:
+                # Pick random coins
+            else:
+                coins = ???
 
-        self.transactions = Transactions
-        self.exchange = Exchange
-        self.summary = Summary
         self.coins = {Coin(coin) for coin in coins}
+        self.transactions = Transactions
+        self.summary = Summary
+
+
 
 
     def update(self):
