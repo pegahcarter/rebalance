@@ -1,6 +1,6 @@
 
 
-class Coins:
+class Coin:
 
     def __init__(self):
         self.price = price

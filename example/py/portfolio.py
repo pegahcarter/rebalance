@@ -2,8 +2,15 @@
 
 class Portfolio:
 
-    def __init__(self):
-        pass
+    def __init__(self, coins=None):
+
+        if coins is None:
+            coins = ???
+
+        self.transactions = Transactions
+        self.exchange = Exchange
+        self.summary = Summary
+        self.coins = {Coin(coin) for coin in coins}
 
 
     def update(self):
@@ -11,7 +18,7 @@ class Portfolio:
         update_exchange()
         update_transactions()
         update_coins()
-        
+
 
     def update_summary(Summary):
         pass
@@ -26,7 +33,4 @@ class Portfolio:
 
 
     def update_coins(Coins):
-        pass
-
-    def execute_trade(self):
         pass
