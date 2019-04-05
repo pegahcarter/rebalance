@@ -1,53 +1,55 @@
-exchange:
-{
-  "simulated": "...",
-  "backtest": "...",
-  "fee_rate": "...",
-  "slippage_rate": "..."
-},
-transactions:
-[
+portfolio: {
+  "exchange":
   {
-    "coin": "ETH",
-    "id": "...",
-    "date": "...",
-    "side": "...",
-    "units": "...",
-    "current_price": "...",
-    "fees": "...",
-    "prev_units": "...",
-    "cum_units": "...",
-    "tx_val": "...",
-    "prev_cost": "...",
-    "tx_cost": "...",
-    "tx_cost_per_unit": "...",
-    "cum_cost": "...",
-    "pnl_realised_d_amt": "...",
-    "pnl_realised_pct": "..."
+    "simulated": "...",
+    "backtest": "...",
+    "fee_rate": "...",
+    "slippage_rate": "..."
   },
-],
-summary:
-{
-    "cost": "...",
-    "market_val": "...",
-    "pnl_unrealised_d_amt": "...",
-    "pnl_realised_d_amt": "...",
-    "pnl_unrealsed_pct": "...",
-    "fees": "...",
-    "tx_count": "...",
-    "coins": ["BTC", "ETH", "XRP", "LTC"]
-},
-coins:
-{
-  "ETH":
+  "transactions":
+  [
+    {
+      "coin": "ETH",
+      "id": "...",
+      "date": "...",
+      "side": "...",
+      "units": "...",
+      "current_price": "...",
+      "fees": "...",
+      "prev_units": "...",
+      "cum_units": "...",
+      "tx_val": "...",
+      "prev_cost": "...",
+      "tx_cost": "...",
+      "tx_cost_per_unit": "...",
+      "cum_cost": "...",
+      "pnl_realised_d_amt": "...",
+      "pnl_realised_pct": "..."
+    },
+  ],
+  "summary":
   {
-    "price": "...",
-    "cost": "...",
-    "units": "...",
-    "market_val": "...",
-    "pnl_unrealised_d_amt": "...",
-    "pnl_realised_d_amt": "...",
-    "pnl_unrealsed_pct": "...",
-    "fees": "..."
+      "cost": "...",
+      "market_val": "...",
+      "pnl_unrealised_d_amt": "...",
+      "pnl_realised_d_amt": "...",
+      "pnl_unrealsed_pct": "...",
+      "fees": "...",
+      "tx_count": "...",
+      "coins": ["BTC", "ETH", "XRP", "LTC"]
   },
+  "coins":
+  {
+    "ETH":
+    {
+      "price": "...",
+      "cost": "...",
+      "units": "...",
+      "market_val": "...",
+      "pnl_unrealised_d_amt": "...",
+      "pnl_realised_d_amt": "...",
+      "pnl_unrealsed_pct": "...",
+      "fees": "..."
+    },
+  }
 }
