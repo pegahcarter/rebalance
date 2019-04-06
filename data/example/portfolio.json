@@ -9,19 +9,19 @@ portfolio: {
   "transactions":
   [
     {
+      "trade_id": "...",
       "coin": "ETH",
-      "id": "...",
       "date": "...",
-      "side": "...",
+      "buy_or_sell": "...",
+      "price": "...",
       "units": "...",
       "current_price": "...",
       "fees": "...",
       "prev_units": "...",
       "cum_units": "...",
-      "tx_val": "...",
-      "prev_cost": "...",
-      "tx_cost": "...",
       "tx_cost_per_unit": "...",
+      "tx_cost": "...",
+      "prev_cost": "...",
       "cum_cost": "...",
       "pnl_realised_d_amt": "...",
       "pnl_realised_pct": "..."
