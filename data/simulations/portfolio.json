@@ -1,13 +1,11 @@
-portfolio: {
-  "exchange":
-  {
+{
+  "exchange": {
     "simulated": "...",
     "backtest": "...",
     "fee_rate": "...",
     "slippage_rate": "..."
   },
-  "transactions":
-  [
+  "transactions": [
     {
       "trade_id": "...",
       "coin": "ETH",
@@ -25,23 +23,19 @@ portfolio: {
       "cum_cost": "...",
       "pnl_realised_d_amt": "...",
       "pnl_realised_pct": "..."
-    },
+    }
   ],
-  "summary":
-  {
-      "cost": "...",
-      "market_val": "...",
-      "pnl_unrealised_d_amt": "...",
-      "pnl_realised_d_amt": "...",
-      "pnl_unrealsed_pct": "...",
-      "fees": "...",
-      "tx_count": "...",
-      "coins": ["BTC", "ETH", "XRP", "LTC"]
+  "summary": {
+    "cost": "...",
+    "market_val": "...",
+    "pnl_unrealised_d_amt": "...",
+    "pnl_realised_d_amt": "...",
+    "pnl_unrealsed_pct": "...",
+    "fees": "...",
+    "tx_count": "..."
   },
-  "coins":
-  {
-    "ETH":
-    {
+  "coins": {
+    "ETH": {
       "price": "...",
       "cost": "...",
       "units": "...",
@@ -50,6 +44,6 @@ portfolio: {
       "pnl_realised_d_amt": "...",
       "pnl_unrealsed_pct": "...",
       "fees": "..."
-    },
+    }
   }
 }
