@@ -7,7 +7,7 @@
   },
   "transactions": [
     {
-      "trade_id": "...",
+      "id": "...",
       "coin": "ETH",
       "date": "...",
       "buy_or_sell": "...",
