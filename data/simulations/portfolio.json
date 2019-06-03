@@ -1,10 +1,7 @@
 {
-  "exchange": {
-    "simulated": "...",
-    "backtest": "...",
-    "fee_rate": "...",
-    "slippage_rate": "..."
-  },
+  "simulated": "...",
+  "fee_rate": "...",
+  "slippage_rate": "...",
   "transactions": [
     {
       "id": "...",

@@ -1,15 +1,28 @@
 import ccxt
 import pandas as pd
-from coin import Coin
+from py.coin import Coin
 from exchange import Exchange
 
 
 class Portfolio(Exchange):
 
-    def __init__(self, simulation=False, coins=None, start_amt=None):
-        self.simulation = simulation
-        Exchange.__init__(self, simulation, coins, start_amt)
-        # self.hist_prices = hist_prices
+    def __init__(self, **kwargs):
+        self.transactions = []
+        coins = kwargs.pop(coins)
+        for key, val in kwargs.items():
+            setattr(self, key, val)
+
+        self.coins = {}
+        for coin in coins:
+            price = self.prices[coin].at[0]
+            self.coins[coin] = Coin(
+                coin=coin,
+                trade_id=len(self.transactions) + 1,
+                price=price,
+                units=self.start_amt/price,
+                fee_rate = self.fee_rate
+            )
+
         # self.cost = 0
         # self.market_val = 0
         # self.pnl_unrealised_d_amt = 0
@@ -23,13 +36,13 @@ class Portfolio(Exchange):
 		# self.coins = {}
         #
         # self._update_portfolio(coins)
+        # def _update_portfolio(self, coins):
+        #     if not self.simulated:
+        #         coins = self.exchange.balance.keys()
+        #
+        #         for coin in coins:
+        #             self._add_coin(coin)
 
-	def _update_portfolio(self, coins):
-		if not self.simulated:
-			coins = self.exchange.balance.keys()
-
-		for coin in coins:
-			self._add_coin(coin)
 
 
 	# NOTE: this should add the initial purchase tx
