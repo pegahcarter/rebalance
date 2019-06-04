@@ -1,40 +1,46 @@
-from portfolio import Portfolio
-from coin import Coin
-
-simulated = False
-backtest = False
-coins = ['BTC', 'ETH', 'XRP', 'LTC']
+import models
+import transactions
+import exchange
 
 
-def run(portfolio):
+def run(coins=None):
 
-    # TODO: what do we need to update?
-    portfolio.refresh()
+	portfolio = models.Portfolio(coins)
+	avg_weight = 1.0/len(portfolio.coins)
+	# We'll take the coins with the highest and lowest dollar value to
+	# test our threshold
+	trade_weight = min([avg_weight - min(portfolio.usd_values)/sum(portfolio.usd_values),
+						max(portfolio.usd_values)/sum(portfolio.usd_values) - avg_weight])
 
-    avg_weight = 1.0/len(portfolio.coins)
+	trade_usd_value = trade_weight * sum(portfolio.usd_values)
+	if trade_usd_value < 20:
+		print('Trade value is less than $20.  Rebalance complete.')
+		return
 
-    # TODO: should there be other functions to figure out trade weight?
-    trade_weight = ???
+	min_index = portfolio.usd_values.argmin()
+	max_index = portfolio.usd_values.argmax()
+	print('\nValue of trade: ${0:.2f}'.format(trade_usd_value))
+	print('Sell: {}'.format(portfolio.coins[max_index]))
+	print('Buy: {}'.format(portfolio.coins[min_index]))
+	# Sell side
+	if portfolio.coins[max_index] != 'USDT':
+		portfolio.binance.create_order(portfolio.coins[max_index] + '/USDT',
+									   'market',
+									   'sell',
+									   trade_usd_value / portfolio.prices[max_index])
 
-    d_amt = trade_weight * portfolio.market_val
+	# Buy side
+	if portfolio.coins[min_index] != 'USDT':
+		portfolio.binance.create_order(portfolio.coins[min_index] + '/USDT',
+									   'market',
+									   'buy',
+									   trade_usd_value / portfolio.prices[min_index])
 
-    if d_amt < 20:
-        print('Trade value is less than $20.  Rebalance complete!')
-        return
-    else:
-        # Execute trade
-
-        # Run rebalancer again
-        return run(portfolio)
+	return run(coins)
 
 
 
+if __name__ == '__main__':
 
-
-
-
-if __name__ == "__main__":
-
-
-    portfolio = Portfolio(simulated, backtest, coins)
-    run(portfolio)
+	transactions.initialize()
+	run()
