@@ -22,15 +22,13 @@
       "pnl_realised_pct": "..."
     }
   ],
-  "summary": {
-    "cost": "...",
-    "market_val": "...",
-    "pnl_unrealised_d_amt": "...",
-    "pnl_realised_d_amt": "...",
-    "pnl_unrealsed_pct": "...",
-    "fees": "...",
-    "tx_count": "..."
-  },
+  "cost": "...",
+  "market_val": "...",
+  "pnl_unrealised_d_amt": "...",
+  "pnl_realised_d_amt": "...",
+  "pnl_unrealsed_pct": "...",
+  "fees": "...",
+  "tx_count": "...",
   "coins": {
     "ETH": {
       "price": "...",
