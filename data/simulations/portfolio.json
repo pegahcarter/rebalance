@@ -18,8 +18,7 @@
       "tx_cost": "...",
       "prev_cost": "...",
       "cum_cost": "...",
-      "pnl_realised_d_amt": "...",
-      "pnl_realised_pct": "..."
+      "pnl_realised_d_amt": "..."
     }
   ],
   "cost": "...",
@@ -37,7 +36,7 @@
       "market_val": "...",
       "pnl_unrealised_d_amt": "...",
       "pnl_realised_d_amt": "...",
-      "pnl_unrealsed_pct": "...",
+      "pnl_unrealised_pct": "...",
       "fees": "..."
     }
   }
