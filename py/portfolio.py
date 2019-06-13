@@ -39,7 +39,7 @@ class Portfolio:
         fees = cost * self.fee_rate
         units = (cost - fees)/price
         date = self.prices['timestamp'][0]
-        self._add_transaction(coin, 'BUY', units, cost, price, date)
+        self._add_transaction(coin, 'buy', units, cost, price, date)
 
     def _add_transaction(self, coin, side, units, cost, price, date):
         tx = {
@@ -59,10 +59,11 @@ class Portfolio:
         except:  # There are no prior transactions with the coin
             tx['prev_cost'] = 0
             tx['prev_units'] = 0
-        if side == 'BUY':
+        if side == 'buy':
             tx['cum_cost'] = tx['prev_cost'] + cost
             tx['cum_units'] = tx['prev_units'] + units
-        else:  # side == 'SELL'
+        else:  # side == 'sell'
+            # NOTE: 'THIS' references _add_coin.  I should be able to simplify this
             tx['cum_cost'] = tx['prev_units'] - cost  # THIS
             tx['cum_units'] = tx['prev_units'] - units  # THIS
             tx['cost_per_unit'] = tx['prev_cost'] / tx['prev_units']  # THIS
@@ -101,3 +102,14 @@ class Portfolio:
             # pnl_unrealised_pct =
             Coin['fees'] = coin_txs['fees'].sum()
             self.coins[coin] = Coin
+
+    def trade(self, d_val, i, **kwargs):
+        # TODO: figure out where to apply fees/slippage.  They shouldn't apply to
+        # both sides.
+        date = self.prices['timestamp'][i]
+        for side in kwargs:
+            coin = side.values()[0]
+            price = self.get_price(coin, i)
+            cost = d_val
+            units = price/cost
+            self._add_transaction(coin, side, units, cost, price, date)
