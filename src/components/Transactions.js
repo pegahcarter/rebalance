@@ -2,21 +2,20 @@ import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-const columns = [
-  // TODO
+const columns = []
 
-]
-// <ReactTable
-//   columns={columns}
-//   data={}
-// >
-// </ReactTable>
+export default class Transactions extends React.Component {
+  constructor(props) {
+    super(props);
 
-const Transactions = props => {
-  return (
-    <div>
-    </div>
-  )
+    this.state = {
+      tx_count: 1
+    };
+  }
+
+  render() {
+    return (
+      <div>Transactions</div>
+    )
+  }
 }
-
-export default Transactions;
