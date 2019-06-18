@@ -6,14 +6,15 @@ const columns = [
   // TODO
 ]
 
-const Coins = () => {
+// <ReactTable
+//   columns={columns}
+//   data={}
+// >
+// </ReactTable>
+
+const Coins = props => {
   return (
     <div>
-      <ReactTable
-        columns={columns}
-        data={}
-      >
-      </ReactTable>
     </div>
   )
 }

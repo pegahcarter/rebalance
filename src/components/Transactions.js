@@ -4,16 +4,17 @@ import 'react-table/react-table.css';
 
 const columns = [
   // TODO
-]
 
-const Transactions = () => {
+]
+// <ReactTable
+//   columns={columns}
+//   data={}
+// >
+// </ReactTable>
+
+const Transactions = props => {
   return (
     <div>
-      <ReactTable
-        columns={columns}
-        data={}
-      >
-      </ReactTable>
     </div>
   )
 }

@@ -2,9 +2,11 @@ import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-const Graph = () => {
+const Graph = props => {
+  // TODO: insert graph data here
   return (
-    // TODO: insert graph data here
+    <div>
+    </div>
   )
 }
 
