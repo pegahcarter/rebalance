@@ -6,7 +6,6 @@ class Portfolio:
 
     # api = ccxt.binance()
     prices = pd.read_csv('data/historical/prices.csv')
-
     def __init__(self, simulated=False, coins=None, fee_rate=None, slippage_rate=None):
         try:
             with open('portfolio.json', 'r') as f:
@@ -21,10 +20,10 @@ class Portfolio:
             self.slippage_rate = slippage_rate
             self.cost = 0
             self.market_val = 0
-            self.pnl_unrealised_d_amt = 0
-            self.pnl_realised_d_amt = 0
-            self.pnl_unrealsed_pct = 0
-            self.fees = 0
+            # self.pnl_unrealised_d_amt = 0
+            # self.pnl_realised_d_amt = 0
+            # self.pnl_unrealsed_pct = 0
+            # self.fees = 0
 
         self.prices = self.prices[['timestamp'] + coins]
         for coin in coins:
@@ -47,15 +46,16 @@ class Portfolio:
             'date': date,
             'coin': coin,
             'side': side,
-            'units': units * (1 - self.slippage_rate),
+            # 'units': units * (1 - self.slippage_rate),
+            'units': units,
             'cost': cost,
-            'price': price,
-            'fees': cost * self.fee_rate
+            'price': price
+            # 'fees': cost * self.fee_rate
         }
         try:
             coin_txs = self.get_coin_txs(coin)
-            tx['prev_cost'] = coin_txs['prev_cost'][-1]
-            tx['prev_units'] = coin_txs['cum_units'][-1]
+            tx['prev_cost'] = coin_txs['cum_cost'][len(coin_txs)-1]
+            tx['prev_units'] = coin_txs['cum_units'][len(coin_txs)-1]
         except:  # There are no prior transactions with the coin
             tx['prev_cost'] = 0
             tx['prev_units'] = 0
@@ -68,8 +68,8 @@ class Portfolio:
             tx['cum_units'] = tx['prev_units'] - units  # THIS
             tx['cost_per_unit'] = tx['prev_cost'] / tx['prev_units']  # THIS
             tx['tx_cost'] = units / tx['prev_units'] * tx['prev_cost']
-            tx['pnl_realised_d_amt'] = cost - tx['tx_cost']
-            tx['pnl_realised_pct'] = tx['pnl_realised_d_amt'] / tx['tx_cost']
+            # tx['pnl_realised_d_amt'] = cost - tx['tx_cost']
+            # tx['pnl_realised_pct'] = tx['pnl_realised_d_amt'] / tx['tx_cost']
         self.transactions.append(tx)
 
     def get_price(self, coin, i=0):
@@ -83,7 +83,7 @@ class Portfolio:
 
     def get_coin_txs(self, coin):
         tx_df = pd.DataFrame(self.transactions)
-        return tx_df.loc[tx_df['coin'] == coin].reset_index(drop=True)
+        return tx_df[tx_df['coin'] == coin].reset_index(drop=True)
 
     def update_coins(self, i=0):
         for coin in self.coins:
@@ -94,22 +94,20 @@ class Portfolio:
             Coin['units'] = coin_txs['cum_units'][len(coin_txs)-1]
             Coin['cost_per_unit'] = Coin['cost']/Coin['units']
             Coin['market_val'] = Coin['units'] * Coin['price']
-            Coin['pnl_unrealised_d_amt'] = (Coin['price'] - Coin['cost_per_unit']) * Coin['units']
-            try:
-                Coin['pnl_realised_d_amt'] = coin_txs['pnl_realised_d_amt']
-            except:  # Coin has not yet been sold in a tx
-                Coin['pnl_realised_d_amt'] = 0
+            # Coin['pnl_unrealised_d_amt'] = (Coin['price'] - Coin['cost_per_unit']) * Coin['units']
+            # try:
+            #     Coin['pnl_realised_d_amt'] = coin_txs['pnl_realised_d_amt']
+            # except:  # Coin has not yet been sold in a tx
+            #     Coin['pnl_realised_d_amt'] = 0
             # pnl_unrealised_pct =
-            Coin['fees'] = coin_txs['fees'].sum()
+            # Coin['fees'] = coin_txs['fees'].sum()
             self.coins[coin] = Coin
 
-    def trade(self, d_val, i, **kwargs):
+    def trade(self, cost, i, **kwargs):
         # TODO: figure out where to apply fees/slippage.  They shouldn't apply to
         # both sides.
         date = self.prices['timestamp'][i]
-        for side in kwargs:
-            coin = side.values()[0]
+        for side, coin in kwargs.items():
             price = self.get_price(coin, i)
-            cost = d_val
-            units = price/cost
+            units = cost/price
             self._add_transaction(coin, side, units, cost, price, date)
