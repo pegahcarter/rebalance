@@ -1,6 +1,5 @@
-import models
+from portfolio import Portfolio
 import transactions
-import exchange
 
 
 def run(portfolio, i=None):
@@ -17,32 +16,31 @@ def run(portfolio, i=None):
 		print('Trade value is less than $20.  Rebalance complete.')
 		return
 
-	portfolio.trade()
-
-	min_index = portfolio.market_vals.argmin()
-	max_index = portfolio.market_vals.argmax()
+	portfolio.trade(cost)
 
 
+	# # Sell side
+	# if portfolio.coins[max_index] != 'USDT':
+	# 	portfolio.binance.create_order(portfolio.coins[max_index] + '/USDT',
+	# 								   'market',
+	# 								   'sell',
+	# 								   cost / portfolio.prices[max_index])
+	#
+	# # Buy side
+	# if portfolio.coins[min_index] != 'USDT':
+	# 	portfolio.binance.create_order(portfolio.coins[min_index] + '/USDT',
+	# 								   'market',
+	# 								   'buy',
+	# 								   cost / portfolio.prices[min_index])
+	#
 
-	# Sell side
-	if portfolio.coins[max_index] != 'USDT':
-		portfolio.binance.create_order(portfolio.coins[max_index] + '/USDT',
-									   'market',
-									   'sell',
-									   cost / portfolio.prices[max_index])
-
-	# Buy side
-	if portfolio.coins[min_index] != 'USDT':
-		portfolio.binance.create_order(portfolio.coins[min_index] + '/USDT',
-									   'market',
-									   'buy',
-									   cost / portfolio.prices[min_index])
-
-	return run(coins)
+	return run(portfolio, i)
 
 
 
 if __name__ == '__main__':
 
-	transactions.initialize()
+	# TODO: import variables
+	portfolio = Portfolio(coins, PORTFOLIO_START_VALUE)
+	transactions.initialize(portfolio)
 	run()

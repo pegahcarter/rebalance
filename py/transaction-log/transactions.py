@@ -1,40 +1,25 @@
-import time
+from variables import COLUMNS, TRANSACTIONS_FILE
 import pandas as pd
-import exchange
-import models
-
-hist_prices = pd.read_csv('../data/historical/prices.csv')
-START_DATE = int(hist_prices['timestamp'][0])
-TRANSACTIONS_FILE = '../data/transactions/transactions.csv'
-
-COLUMNS = ['date', 'coin', 'side', 'units', 'price_per_unit', 'fees', 'prev_units',
-           'cum_units', 'tx_val', 'prev_cost', 'tx_cost',
-           'tx_cost_per_unit', 'cum_cost', 'gain_loss', 'realised_pct']
 
 
-def initialize(PORTFOLIO_START_VALUE=None, coins=None):
-    ''' Create transactions.csv'''
-    try:
-        df = pd.read_csv(TRANSACTIONS_FILE)
-    except:
-        df = pd.DataFrame(columns=COLUMNS)
-        df.to_csv(TRANSACTIONS_FILE, index=False)
+class Transactions:
 
-    portfolio = models.Portfolio(coins, PORTFOLIO_START_VALUE)
-    for coin, units in zip(portfolio.coins, portfolio.units):
-        if df.empty or coin not in set(df['coin']):
-            add_coin(coin, units, PORTFOLIO_START_VALUE)
+    ''' Create transactions.csv if it doesn't already exist '''
+    def __init__(self, portfolio):
+        try:
+            transactions = pd.read_csv(TRANSACTIONS_FILE)
+        except:
+            transactions = pd.DataFrame(columns=COLUMNS)
+
+        for coin, units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
+            if transactions.empty or coin not in transactions['coin']:
+                add_coin(coin, units, price, portfolio.date)
+        self.transactions = transactions
 
 
-def add_coin(coin, units, PORTFOLIO_START_VALUE=None):
+def add_coin(coin, units, price, date):
     ''' Add initial purchase of coin to transactions table '''
 
-    date = time.time()
-    price = exchange.fetch_price(coin)
-    # NOTE: if we were running a simulation, we'd want to define the variables different:
-    #     date = START_DATE
-    #     price = hist_prices[coin][0]
-    df = pd.read_csv(TRANSACTIONS_FILE)
     row = {'date': date,
            'coin': coin,
            'side': 'buy',
@@ -48,8 +33,7 @@ def add_coin(coin, units, PORTFOLIO_START_VALUE=None):
            'cum_cost': price * units,
            'gain_loss': 0}
 
-    df = df.append(row, ignore_index=True)
-    df.to_csv(TRANSACTIONS_FILE, index=False)
+    transactions = transactions.append(row, ignore_index=True)
 
 
 def update(trade_coins, trade_sides, trade_units, trade_usd_value, date=None,
@@ -58,9 +42,9 @@ def update(trade_coins, trade_sides, trade_units, trade_usd_value, date=None,
     ''' Document transaction data to CSV '''
 
     for coin, side, units in zip(trade_coins, trade_sides, trade_units):
-        df = pd.read_csv(TRANSACTIONS_FILE)
-        prev_units = df[df['coin'] == coin]['cum_units'].iloc[-1]
-        prev_cost = df[df['coin'] == coin]['cum_cost'].iloc[-1]
+        transactions = pd.read_csv(TRANSACTIONS_FILE)
+        prev_units = transactions[transactions['coin'] == coin]['cum_units'].iloc[-1]
+        prev_cost = transactions[transactions['coin'] == coin]['cum_cost'].iloc[-1]
         if date is None:
             date = time.time()
             current_price = exchange.fetch_price(coin)
@@ -77,7 +61,7 @@ def update(trade_coins, trade_sides, trade_units, trade_usd_value, date=None,
             gain_loss = trade_usd_value - tx_cost
             realised_pct = gain_loss / tx_cost
 
-        df = df.append({'date': date,
+        transactions = transactions.append({'date': date,
                         'coin': coin,
                         'side': side,
                         'units': units,
@@ -94,4 +78,4 @@ def update(trade_coins, trade_sides, trade_units, trade_usd_value, date=None,
                         'realised_pct': realised_pct}, ignore_index=True)
 
     # Save updated dataframe to CSV
-    df.to_csv(TRANSACTIONS_FILE, index=False)
+    transactions.to_csv(TRANSACTIONS_FILE, index=False)

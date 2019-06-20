@@ -1,7 +1,7 @@
 import ccxt
 import pandas as pd
 import transactions
-from api import token
+from variables import token
 
 class Exchange:
 
@@ -16,8 +16,6 @@ class Exchange:
 
 		balance = self.binance.fetchBalance()['free']
 		return {coin:units for coin, units in balance.items() if units > 0}
-
-
 
 
 	def fetch_price(self, coin, i=None):

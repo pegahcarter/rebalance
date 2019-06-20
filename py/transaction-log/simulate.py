@@ -4,7 +4,6 @@ import pandas as pd
 import transactions
 import rebalance
 
-FREQUENCY = 'daily'
 INTERVAL = 24
 coins = ['BTC','ETH','XRP','LTC','XLM'] # TODO: dynamic coins
 PORTFOLIO_START_VALUE = 5000
