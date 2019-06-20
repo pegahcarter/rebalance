@@ -1,4 +1,4 @@
-from variables import COLUMNS, TRANSACTIONS_FILE
+from variables import COLUMNS, TRANSACTIONS_FILE, FEE_RATE
 import pandas as pd
 
 
@@ -11,71 +11,67 @@ class Transactions:
         except:
             transactions = pd.DataFrame(columns=COLUMNS)
 
-        for coin, units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
+        for coin, coin_units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
             if transactions.empty or coin not in transactions['coin']:
-                add_coin(coin, units, price, portfolio.date)
+                self._add_coin(coin, coin_units, price, portfolio.date)
         self.transactions = transactions
 
 
-def add_coin(coin, units, price, date):
-    ''' Add initial purchase of coin to transactions table '''
+    def _add_coin(coin, coin_units, price, date):
+        ''' Add initial purchase of coin to transactions table '''
+        cost = coin_units * price
+        # TODO: do I need to use self.transactions = self.transactions.append()?
+        self.transactions.append({
+            'date': date,
+            'coin': coin,
+            'side': 'buy',
+            'units': coin_units,
+            'prev_units': 0,
+            'cum_units': coin_units,
+            'prev_cost': 0,
+            'cost': cost,
+            'cum_cost': cost
+            # 'cost_per_unit': price,
+            # TODO: incorporate fees w/ less units purchased
+            'fees': cost * FEE_RATE
+            }, ignore_index=True
+        )
+        return
 
-    row = {'date': date,
-           'coin': coin,
-           'side': 'buy',
-           'units': units,
-           'price_per_unit': price,
-           'fees': price * units * 0.00075,
-           'prev_units': 0,
-           'cum_units': units,
-           'tx_val': price * units,
-           'prev_cost': 0,
-           'cum_cost': price * units,
-           'gain_loss': 0}
 
-    transactions = transactions.append(row, ignore_index=True)
+    def update(side, coin, cost, units, date):
+        ''' Document transaction data to CSV '''
 
-
-def update(trade_coins, trade_sides, trade_units, trade_usd_value, date=None,
-           current_price=None, tx_cost_per_unit=None, tx_cost=None, gain_loss=None,
-           realised_pct=None, fees=None):
-    ''' Document transaction data to CSV '''
-
-    for coin, side, units in zip(trade_coins, trade_sides, trade_units):
-        transactions = pd.read_csv(TRANSACTIONS_FILE)
-        prev_units = transactions[transactions['coin'] == coin]['cum_units'].iloc[-1]
-        prev_cost = transactions[transactions['coin'] == coin]['cum_cost'].iloc[-1]
-        if date is None:
-            date = time.time()
-            current_price = exchange.fetch_price(coin)
+        coin_txs = self.transactions[self.transactions['coin'] == coin]
+        prev_units = coin_txs['cum_units'].iloc[-1]
+        prev_cost = coin_txs['cum_cost'].iloc[-1]
 
         if side == 'buy':
-            fees = trade_usd_value * 0.00075
             cum_units = prev_units + units
-            cum_cost = prev_cost + trade_usd_value
-        else:
+            cum_cost = prev_cost + cost
+        else:  # side == 'sell'
             cum_units = prev_units - units
-            tx_cost_per_unit = prev_cost / prev_units
-            tx_cost = units / prev_units * prev_cost
-            cum_cost = prev_cost - trade_usd_value
-            gain_loss = trade_usd_value - tx_cost
-            realised_pct = gain_loss / tx_cost
+            cum_cost = prev_cost - cost
+            # cost_per_unit = prev_cost / prev_units
 
-        transactions = transactions.append({'date': date,
-                        'coin': coin,
-                        'side': side,
-                        'units': units,
-                        'price_per_unit': current_price,
-                        'fees': fees,
-                        'prev_units': prev_units,
-                        'cum_units': cum_units,
-                        'tx_val': current_price * units,
-                        'prev_cost': prev_cost,
-                        'tx_cost':  tx_cost,
-                        'tx_cost_per_unit': tx_cost_per_unit,
-                        'cum_cost': cum_cost,
-                        'gain_loss': gain_loss,
-                        'realised_pct': realised_pct}, ignore_index=True)
+        transactions = transactions.append(
+            {
+                'date': date,
+                'coin': coin,
+                'side': side,
+                # 'price': price,
+                'units': units,
+                'cost': cost,
+                'prev_units': prev_units,
+                'cum_units': cum_units,
+                'prev_cost': prev_cost,
+                'cum_cost': cum_cost,
+                'fees': cost * FEE_RATE
+                # 'cost_per_unit': cost_per_unit,
+                # 'pnl_realised_d_amt': ???,
+                # 'pnl_realised_pct': ???,
+                # 'pnl_unrealised_d_amt: ???'
+            }, ignore_index=True
+        )
 
-    # Save updated dataframe to CSV
-    transactions.to_csv(TRANSACTIONS_FILE, index=False)
+    return cum_units

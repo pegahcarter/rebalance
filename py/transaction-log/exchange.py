@@ -27,3 +27,6 @@ class Exchange:
 			return 1.0
 		else:
 			return float(self.binance.fetch_ticker(coin + '/USDT')['info']['lastPrice'])
+
+	def create_order(coin, side, units):
+		return self.binance.create_order(coin + '/USDT', 'market', side, units)

@@ -7,6 +7,12 @@ token = {
 # Coins to rebalance in simulation
 COINS = ['BTC', 'ETH', 'XRP', 'LTC', 'XLM']
 
+# Fee rate per transaction
+FEE_RATE = 0.00075
+
+# Difference between market price and order price
+SLIPPAGE = 0.005
+
 # Starting dollar value of portfolio simulation
 PORTFOLIO_START_VALUE = 5000
 
@@ -14,9 +20,23 @@ PORTFOLIO_START_VALUE = 5000
 INTERVAL = 12
 
 # Column names for transactions.json
-COLUMNS = ['date', 'coin', 'side', 'units', 'price_per_unit', 'fees', 'prev_units',
-           'cum_units', 'tx_val', 'prev_cost', 'tx_cost',
-           'tx_cost_per_unit', 'cum_cost', 'gain_loss', 'realised_pct']
+COLUMNS = [
+    'date',
+    'coin',
+    'side',
+    # 'price',
+    'units',
+    'cost',
+    'prev_units',
+    'cum_units'
+    'prev_cost',
+    'cum_cost'
+    'fees',
+    # 'cost_per_unit',
+    # 'pnl_realised_d_amt',
+    # 'pnl_realised_pct',
+    # 'pnl_unrealised_d_amt'
+]
 
 # TODO: fix this file reference
 TRANSACTIONS_FILE = '../transactions.json'
