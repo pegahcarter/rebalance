@@ -1,4 +1,0 @@
-token = {
-    apiKey: '',
-    secret: ''
-}
