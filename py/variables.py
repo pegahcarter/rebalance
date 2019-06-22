@@ -1,7 +1,7 @@
 # API token for exchange
 token = {
-    apiKey: '',
-    secret: ''
+    'apiKey': '',
+    'secret': ''
 }
 
 # Coins to rebalance in simulation
@@ -28,10 +28,10 @@ COLUMNS = [
     'units',
     'cost',
     'prev_units',
-    'cum_units'
+    'cum_units',
     'prev_cost',
-    'cum_cost'
-    'fees',
+    'cum_cost',
+    'fees'
     # 'cost_per_unit',
     # 'pnl_realised_d_amt',
     # 'pnl_realised_pct',
@@ -39,4 +39,4 @@ COLUMNS = [
 ]
 
 # TODO: fix this file reference
-TRANSACTIONS_FILE = '../transactions.json'
+TRANSACTIONS_FILE = 'data/simulations/transactions.json'

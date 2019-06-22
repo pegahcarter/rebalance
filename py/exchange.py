@@ -1,14 +1,11 @@
 import ccxt
 import pandas as pd
-import transactions
-from variables import token
+from py.variables import token
 
 class Exchange:
 
 	def __init__(self, coins=None):
-		# TODO: add correct api reference
-		api = pd.read_csv('...')
-		self.binance = ccxt.binance({'options': {'adjustForTimeDifference': True}, token})
+		self.binance = ccxt.binance({'options': {'adjustForTimeDifference': True}, **token})
 
 
 	def fetch_balance(self):

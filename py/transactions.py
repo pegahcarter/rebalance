@@ -1,4 +1,4 @@
-from variables import COLUMNS, TRANSACTIONS_FILE, FEE_RATE
+from py.variables import COLUMNS, TRANSACTIONS_FILE, FEE_RATE
 import pandas as pd
 
 
@@ -7,21 +7,19 @@ class Transactions:
     ''' Create transactions.csv if it doesn't already exist '''
     def __init__(self, portfolio):
         try:
-            transactions = pd.read_csv(TRANSACTIONS_FILE)
+            self.transactions = pd.read_JSON(TRANSACTIONS_FILE)
         except:
-            transactions = pd.DataFrame(columns=COLUMNS)
+            self.transactions = pd.DataFrame(columns=COLUMNS)
 
         for coin, coin_units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
-            if transactions.empty or coin not in transactions['coin']:
+            if self.transactions.empty or coin not in self.transactions['coin']:
                 self._add_coin(coin, coin_units, price, portfolio.date)
-        self.transactions = transactions
 
 
-    def _add_coin(coin, coin_units, price, date):
+    def _add_coin(self, coin, coin_units, price, date):
         ''' Add initial purchase of coin to transactions table '''
         cost = coin_units * price
-        # TODO: do I need to use self.transactions = self.transactions.append()?
-        self.transactions.append({
+        self.transactions = self.transactions.append({
             'date': date,
             'coin': coin,
             'side': 'buy',
@@ -30,7 +28,7 @@ class Transactions:
             'cum_units': coin_units,
             'prev_cost': 0,
             'cost': cost,
-            'cum_cost': cost
+            'cum_cost': cost,
             # 'cost_per_unit': price,
             # TODO: incorporate fees w/ less units purchased
             'fees': cost * FEE_RATE
@@ -39,7 +37,7 @@ class Transactions:
         return
 
 
-    def update(side, coin, cost, units, date):
+    def update(self, side, coin, cost, units, date):
         ''' Document transaction data to CSV '''
 
         coin_txs = self.transactions[self.transactions['coin'] == coin]
@@ -54,7 +52,7 @@ class Transactions:
             cum_cost = prev_cost - cost
             # cost_per_unit = prev_cost / prev_units
 
-        transactions = transactions.append(
+        self.transactions = self.transactions.append(
             {
                 'date': date,
                 'coin': coin,
@@ -73,5 +71,4 @@ class Transactions:
                 # 'pnl_unrealised_d_amt: ???'
             }, ignore_index=True
         )
-
-    return cum_units
+        return cum_units

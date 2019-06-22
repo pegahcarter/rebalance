@@ -23,7 +23,5 @@ def run(portfolio, i=None):
 
 if __name__ == '__main__':
 
-	# TODO: import variables
 	portfolio = Portfolio(coins, PORTFOLIO_START_VALUE)
 	run()
-	# TODO: figure out where to save
