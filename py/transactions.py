@@ -20,6 +20,7 @@ class Transactions:
         ''' Add initial purchase of coin to transactions table '''
         cost = coin_units * price
         self.transactions = self.transactions.append({
+            'id': len(self.transactions) + 1,
             'date': date,
             'coin': coin,
             'side': 'buy',
@@ -54,6 +55,7 @@ class Transactions:
 
         self.transactions = self.transactions.append(
             {
+                'id': len(self.transactions) + 1,
                 'date': date,
                 'coin': coin,
                 'side': side,

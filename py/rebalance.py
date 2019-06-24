@@ -1,8 +1,11 @@
-from portfolio import Portfolio
-import transactions
 
 
 def run(portfolio, i=None):
+
+	if i:
+		portfolio.date = portfolio.dates[i]
+		portfolio.prices = portfolio.hist_prices[i]
+		portfolio.market_vals = portfolio.prices * portfolio.units
 
 	avg_weight = 1.0/len(portfolio.coins)
 	# We'll take the coins with the highest and lowest dollar value to
@@ -12,16 +15,6 @@ def run(portfolio, i=None):
 						max(portfolio.market_vals)/market_val - avg_weight])
 
 	cost = trade_weight * market_val
-	if cost < 20:
-		print('Trade value is less than $20.  Rebalance complete.')
-		return
-	else:
+	if cost > 20:
 		portfolio.trade(cost)
 		return run(portfolio, i)
-
-
-
-if __name__ == '__main__':
-
-	portfolio = Portfolio(coins, PORTFOLIO_START_VALUE)
-	run()
