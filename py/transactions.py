@@ -11,22 +11,22 @@ class Transactions:
         except:
             self.transactions = pd.DataFrame(columns=COLUMNS)
 
-        for coin, coin_units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
+        for coin, units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
             if self.transactions.empty or coin not in self.transactions['coin']:
-                self._add_coin(coin, coin_units, price, portfolio.date)
+                self._add_coin(coin, units, price, portfolio.date)
 
 
-    def _add_coin(self, coin, coin_units, price, date):
+    def _add_coin(self, coin, units, price, date):
         ''' Add initial purchase of coin to transactions table '''
-        cost = coin_units * price
+        cost = units * price
         self.transactions = self.transactions.append({
             'id': len(self.transactions) + 1,
             'date': date,
             'coin': coin,
             'side': 'buy',
-            'units': coin_units,
+            'units': units,
             'prev_units': 0,
-            'cum_units': coin_units,
+            'cum_units': units,
             'prev_cost': 0,
             'cost': cost,
             'cum_cost': cost,

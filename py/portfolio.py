@@ -50,3 +50,22 @@ class Portfolio:
 			self.units[index] = self.transactions.update(side, coin, cost, units, self.date)
 			if self.PORTFOLIO_START_VALUE is None:
 				exchange.create_order(coin, side, units)
+
+
+	def summarize(self):
+		''' Saves grouped coin data to coins.json '''
+
+		summary = []
+		for coin in self.coins:
+			summary.append({
+				'coin': coin,
+				'price': ???,
+				'units': ???,
+				'cost': ???,
+				'unit_cost': ???,
+				'pnl_unrealised_d_amt': ???,
+				'pnl_unrealised_pct': ???,
+				'pnl_realised_d_amt': ???,
+				'gain_loss': ???,
+				'market_val'
+			})
