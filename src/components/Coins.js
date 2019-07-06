@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 const columns = []
 
-export default class Coins extends React.Component {
+export default class Coins extends Component {
   constructor(props) {
     super(props);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import transactions from '../assets/transactions.json';
@@ -52,7 +52,7 @@ const columns = [
 ]
 
 
-export default class Transactions extends React.Component {
+export default class Transactions extends Component {
   constructor(props) {
     super(props);
   }

@@ -56,16 +56,16 @@ class Portfolio:
 		''' Saves grouped coin data to coins.json '''
 
 		summary = []
-		for coin in self.coins:
+		for i, coin in enumerate(self.coins):
 			summary.append({
 				'coin': coin,
-				'price': ???,
+				'price': self.prices[i],
 				'units': ???,
 				'cost': ???,
-				'unit_cost': ???,
-				'pnl_unrealised_d_amt': ???,
-				'pnl_unrealised_pct': ???,
-				'pnl_realised_d_amt': ???,
-				'gain_loss': ???,
-				'market_val'
+				# 'unit_cost': ???,
+				# 'pnl_unrealised_d_amt': ???,
+				# 'pnl_unrealised_pct': ???,
+				# 'pnl_realised_d_amt': ???,
+				# 'gain_loss': ???,
+				'market_val': self.prices[i] * self.units[i]
 			})
