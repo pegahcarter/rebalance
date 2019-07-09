@@ -11,7 +11,7 @@ format
 ### Current Project Status
 So far, we're able to simulate purchasing 5 coins and rebalancing them over a specific
 period of time.  More to come.
-![Current front end](data/screenshots/2019.07.08.png)
+![Current front end](data/screenshots/2019.07.08.PNG)
 
 ---
 
