@@ -1,6 +1,17 @@
 # rebalance
-
 ### Contributors: Chris Wallwork, Carter Carlson
+
+### Project Goals
+* React front end
+* Display coin transactions and summaries in a clean, easy to understand
+format
+* Functional product to rebalance personal funds or simulate rebalance
+* Allow users to select which coins/dates they want to simulate
+
+### Current Project Status
+So far, we're able to simulate purchasing 5 coins and rebalancing them over a specific
+period of time.  More to come.
+![Current front end](data/screenshots/2019.07.08.png)
 
 ---
 
@@ -14,7 +25,7 @@ This repository merges two similar repositories:
   * Rebalances a specific basket of coins and captures details of the transactions
   * Can be simulated or used for personal rebalancing
 
----
+
 ### Repository Comparison
 While the two repositories have similar purposes, they were made separately and have different code structures.
 * __Code Structure__
@@ -23,7 +34,7 @@ While the two repositories have similar purposes, they were made separately and 
     * Zips the lists together
   * _transaction-log_:
     * Portfolio object
-    * Methods for portfolio class are outside the class in functions 
+    * Methods for portfolio class are outside the class in functions
 * __Pros__
   - _crypto-simulations_
     * Optimizes simulation speed for a large number of backtests
@@ -40,9 +51,3 @@ While the two repositories have similar purposes, they were made separately and 
   * _transaction-log_:
     * Cannot scale to multiple backtests
     * Portfolio methods should be inside the class, not outside functions
-
-Once completed, the new code structure will have:
-* A portfolio object summarizing performance, including a list of coin objects
-* Inside the portfolio, an exchange object with current balances and prices
-* Coin objects for each coin in the portfolio, including coin performance and transactions
-* A transaction object inside each coin, containing all relevant coin transactions
