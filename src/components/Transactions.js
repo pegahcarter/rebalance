@@ -53,13 +53,10 @@ const columns = [
 
 
 export default class Transactions extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
-      <div>
+      <div style={{marginTop: '10%'}}>
         <ReactTable
           columns={columns}
           data={transactions}
