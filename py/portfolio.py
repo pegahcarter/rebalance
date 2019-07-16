@@ -57,11 +57,12 @@ class Portfolio:
 
 		summary = []
 		for i, coin in enumerate(self.coins):
+			coin_df = self.transactions.transactions[self.transactions.transactions['coin'] == coin]
 			summary.append({
 				'coin': coin,
 				'price': self.prices[i],
-				'units': ???,
-				'cost': ???,
+				'units': self.units[i],
+				'cost': coin_df.iloc[-1]['cum_cost'],
 				# 'unit_cost': ???,
 				# 'pnl_unrealised_d_amt': ???,
 				# 'pnl_unrealised_pct': ???,
@@ -69,3 +70,5 @@ class Portfolio:
 				# 'gain_loss': ???,
 				'market_val': self.prices[i] * self.units[i]
 			})
+		summary = pd.DataFrame(summary)
+		summary.to_json('src/assets/coins.json', orient='records')

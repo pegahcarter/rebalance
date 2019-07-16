@@ -66,6 +66,6 @@ export default class Transactions extends Component {
         >
         </ReactTable>
       </div>
-    )
+    );
   }
 }

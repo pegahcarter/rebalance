@@ -9,7 +9,10 @@ import Graph from './components/Graph';
 class App extends Component {
   render() {
     return (
-      <Transactions />
+      <div>
+        <Coins />
+        <Transactions />
+      </div>
     );
   }
 }

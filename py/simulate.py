@@ -10,6 +10,8 @@ for i in range(1, len(portfolio.hist_prices)):
 
 
 portfolio.transactions.transactions.to_json('src/assets/transactions.json', orient='records')
+portfolio.summarize()
+
 
 # hr_totals = [PORTFOLIO_START_VALUE]
 # transactions.initialize(TRANSACTIONS_FILE, PORTFOLIO_START_VALUE, coins)
