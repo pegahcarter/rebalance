@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ButtonToolbar, Button } from "react-bootstrap";
+import { ToggleButtonGroup, ButtonToolbar, ToggleButton, Button } from "react-bootstrap";
 
 
 export default class Simulate extends Component {
@@ -7,17 +7,29 @@ export default class Simulate extends Component {
   render() {
     return (
       <div>
-        <ButtonToolbar>
-          <Button variant="outline-primary">BTC</Button>
-          <Button variant="outline-primary">ETH</Button>
-          <Button variant="outline-primary">XRP</Button>
-          <Button variant="outline-primary">LTC</Button>
-          <Button variant="outline-primary">XLM</Button>
-          <Button variant="outline-primary">TRX</Button>
-          <Button variant="outline-primary">ADA</Button>
-          <Button variant="outline-primary">DASH</Button>
-        </ButtonToolbar>
-        <Button variant="outline-primary" size="lg" style={{ marginTop: 50}}>Simulate</Button>
+        <div class="d-flex justify-content-end">
+          <ButtonToolbar>
+            <ToggleButtonGroup type="checkbox" defaultValue={[1,2,3,4]}>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={1}>BTC</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={2}>ETH</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={3}>XRP</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={4}>LTC</ToggleButton>
+            </ToggleButtonGroup>
+          </ButtonToolbar>
+        </div>
+        <div class="d-flex justify-content-end">
+          <ButtonToolbar>
+            <ToggleButtonGroup type="checkbox" defaultValue={5}>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={5}>XLM</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={6}>TRX</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={7}>ADA</ToggleButton>
+              <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={8}>DASH</ToggleButton>
+            </ToggleButtonGroup>
+          </ButtonToolbar>
+        </div>
+        <div class="d-flex justify-content-end">
+          <Button variant="primary" type="submit" style={{ marginTop: 50, width: 200}}>Simulate</Button>
+        </div>
       </div>
     );
   }

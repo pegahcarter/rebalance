@@ -11,7 +11,7 @@ const columns = [
   },
   {
     Header: 'Date',
-    accessor: 'date'
+    accessor: 'date',
   },
   {
     Header: 'Coin',
@@ -23,31 +23,38 @@ const columns = [
   },
   {
     Header: 'Units',
-    accessor: 'units'
+    accessor: 'units',
+    Cell: props => props.value.toFixed(4)
   },
   {
     Header: 'Cost',
-    accessor: 'cost'
+    accessor: 'cost',
+    Cell: props => '$' + props.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   },
   {
     Header: 'Previous Units',
-    accessor: 'prev_units'
+    accessor: 'prev_units',
+    Cell: props => props.value.toFixed(4)
   },
   {
     Header: 'Cumulative Units',
-    accessor: 'cum_units'
+    accessor: 'cum_units',
+    Cell: props => props.value.toFixed(4)
   },
   {
     Header: 'Previous Cost',
-    accessor: 'prev_cost'
+    accessor: 'prev_cost',
+    Cell: props => '$' + props.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   },
   {
     Header: 'Cumulative Cost',
-    accessor: 'cum_cost'
+    accessor: 'cum_cost',
+    Cell: props => '$' + props.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   },
   {
     Header: 'Fees',
-    accessor: 'fees'
+    accessor: 'fees',
+    Cell: props => '$' + props.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   }
 ]
 
@@ -56,7 +63,7 @@ export default class Transactions extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: '10%'}}>
+      <div style={{ marginTop: 100}}>
         <ReactTable
           columns={columns}
           data={transactions}
