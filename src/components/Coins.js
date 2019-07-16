@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import { MDBBtn } from "mdbreact";
+import React, { Component } from 'react';
 // import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import coins from '../assets/coins.json';
+// import coins from '../assets/coins.json';
 
 // const columns = [
 //   {

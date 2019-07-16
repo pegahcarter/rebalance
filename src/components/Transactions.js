@@ -56,7 +56,7 @@ export default class Transactions extends Component {
 
   render() {
     return (
-      <div style={{marginTop: '10%'}}>
+      <div style={{ marginTop: '10%'}}>
         <ReactTable
           columns={columns}
           data={transactions}
