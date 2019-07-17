@@ -3,11 +3,14 @@ import { ToggleButtonGroup, ButtonToolbar, ToggleButton, Button } from "react-bo
 
 
 export default class Simulate extends Component {
+  constructor(){
+    super()
 
+  }
   render() {
     return (
       <div>
-        <div class="d-flex justify-content-end">
+        <div className="d-flex justify-content-end">
           <ButtonToolbar>
             <ToggleButtonGroup type="checkbox" defaultValue={[1,2,3,4]}>
               <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={1}>BTC</ToggleButton>
@@ -17,7 +20,7 @@ export default class Simulate extends Component {
             </ToggleButtonGroup>
           </ButtonToolbar>
         </div>
-        <div class="d-flex justify-content-end">
+        <div className="d-flex justify-content-end">
           <ButtonToolbar>
             <ToggleButtonGroup type="checkbox" defaultValue={5}>
               <ToggleButton variant="outline-dark" style={{width:100, margin:10}} value={5}>XLM</ToggleButton>
@@ -27,8 +30,8 @@ export default class Simulate extends Component {
             </ToggleButtonGroup>
           </ButtonToolbar>
         </div>
-        <div class="d-flex justify-content-end">
-          <Button variant="primary" type="submit" style={{ marginTop: 50, width: 200}}>Simulate</Button>
+        <div className="d-flex justify-content-end">
+          <Button variant="primary" type="submit" style={{ marginTop: 50, width: 200}} onClick={() => {this.props.submit()}}>Simulate</Button>
         </div>
       </div>
     );
