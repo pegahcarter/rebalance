@@ -7,8 +7,8 @@ import numpy as np
 class Portfolio:
 	'''	Represents our account balance on Binance '''
 
-	hist_prices = pd.read_csv('data/historical/prices.csv')
-	dates = hist_prices['timestamp'].tolist()
+	hist_prices = pd.read_csv('src/assets/prices.csv')
+	dates = hist_prices['date'].tolist()
 	exchange = Exchange()
 
 	def __init__(self, COINS=None, PORTFOLIO_START_VALUE=None):
@@ -57,7 +57,8 @@ class Portfolio:
 
 		summary = []
 		for i, coin in enumerate(self.coins):
-			coin_df = self.transactions.transactions[self.transactions.transactions['coin'] == coin]
+			tx = self.transactions.transactions.copy()
+			coin_df = tx[tx['coin'] == coin]
 			summary.append({
 				'coin': coin,
 				'price': self.prices[i],
