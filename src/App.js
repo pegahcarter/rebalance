@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 
-import Coins from './components/Coins';
+import Summary from './components/Summary';
 import Simulate from './components/Simulate';
 import Transactions from './components/Transactions';
 import Graph from './components/Graph';

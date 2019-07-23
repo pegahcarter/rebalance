@@ -38,5 +38,5 @@ COLUMNS = [
     # 'pnl_unrealised_d_amt'
 ]
 
-# TODO: fix this file reference
-TRANSACTIONS_FILE = 'data/simulations/transactions.json'
+TRANSACTIONS_FILE = 'src/assets/transactions.json'
+SUMMARY_FILE = 'src/assets/summary.json'

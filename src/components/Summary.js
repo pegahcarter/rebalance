@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactTable, { ReactTableDefaults } from 'react-table';
 import 'react-table/react-table.css';
-import coins from '../assets/coins.json';
+import summary from '../assets/summary.json';
 
 
 const columns = [
@@ -47,8 +47,8 @@ export default class Coins extends Component {
       <div style={{width:950}}>
         <ReactTable
           columns={columns}
-          data={coins}
-          defaultPageSize={coins.length}
+          data={summary}
+          defaultPageSize={summary.length}
         >
 
         </ReactTable>

@@ -14,3 +14,5 @@ def run(portfolio, i):
 		portfolio.trade(side='SELL', coin_index=market_vals.argmax(), cost=cost, i=i)
 		portfolio.trade(side='BUY', coin_index=market_vals.argmin(), cost=cost, i=i)
 		return run(portfolio, i)
+	else:
+		return portfolio

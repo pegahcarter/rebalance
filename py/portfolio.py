@@ -1,8 +1,10 @@
 # from py.exchange import Exchange
 from datetime import datetime
-from py.variables import FEE_RATE
+from py.variables import FEE_RATE, TRANSACTIONS_FILE, SUMMARY_FILE
 import pandas as pd
 import numpy as np
+import itertools
+
 
 class Portfolio:
 	'''	Represents our account balance on Binance '''
@@ -91,12 +93,16 @@ class Portfolio:
 		self.units[coin_index] += units
 		# if self.PORTFOLIO_START_VALUE is None:
 		# 	exchange.create_order(coin, side, units)
-
+		return self.units[coin_index]
 
 
 
 	def summarize(self):
-		''' Saves grouped coin data to coins.json '''
+		''' Saves coin and transaction data '''
+
+		transactions = list(itertools.chain(*self.coins.values()))
+		transactions = pd.DataFrame(transactions).sort_values(by='id')
+		transactions.to_json(TRANSACTIONS_FILE, orient='records')
 
 		summary = []
 		for i, coin in enumerate(self.coins):
@@ -116,7 +122,8 @@ class Portfolio:
 				# 'gain_loss': ???,
 			})
 		summary = pd.DataFrame(summary)
-		summary.to_json('src/assets/coins.json', orient='records')
+		summary.to_json(SUMMARY_FILE, orient='records')
+		return
 
 
 
