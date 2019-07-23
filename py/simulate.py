@@ -1,28 +1,29 @@
 from py.portfolio import Portfolio
 from py.variables import INTERVAL, COINS, PORTFOLIO_START_VALUE, TRANSACTIONS_FILE
 import py.rebalance as rebalance
+import pandas as pd
+import numpy as np
 
 
 portfolio = Portfolio(COINS, PORTFOLIO_START_VALUE)
 for i in range(1, len(portfolio.hist_prices)):
     if i % INTERVAL == 0:
-        rebalance.run(portfolio, i)
+        portfolio.date = portfolio.dates[i]
+        portfolio.prices = portfolio.hist_prices[i]
+        rebalance.run(portfolio)
 
 
 portfolio.transactions.transactions.to_json('src/assets/transactions.json', orient='records')
 portfolio.summarize()
 
 
-# Code to create simulated non-rebalanced portfolio
-import pandas as pd
+
+
+
 portfolio_lame = Portfolio(COINS, PORTFOLIO_START_VALUE)
+np.multiply(portfolio_lame.units, portfolio_lame.hist_prices)
 
-test = pd.read_csv('src/assets/prices.csv', usecols=['date'] + COINS)
-a = test.pop('date')
-
-
-portfolio_lame.units
-
+portfolio_lame.hist_prices[0].dot(portfolio_lame.units)
 
 
 hr_totals = [PORTFOLIO_START_VALUE]

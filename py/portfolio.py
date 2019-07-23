@@ -14,7 +14,7 @@ class Portfolio:
 		if PORTFOLIO_START_VALUE:
 			hist_prices = pd.read_csv('src/assets/prices.csv', usecols=['date'] + COINS)
 			self.dates = hist_prices.pop('date')
-			self.hist_prices = np.array(hist_prices))
+			self.hist_prices = np.array(hist_prices)
 			date = self.dates[0]
 			prices = self.hist_prices[0]
 			amt_each = PORTFOLIO_START_VALUE / len(COINS)
@@ -29,20 +29,17 @@ class Portfolio:
 
 		self.date = date
 		self.coins = COINS
+		self.avg_weight = 1.0/len(self.coins)
 		self.prices = prices
+		self.start_units = units
 		self.units = units
-		self.market_vals = prices * units
 		self.transactions = Transactions(self)
 
 
-	def trade(self, cost):
+	def trade(self, cost, data):
 		''' Executes a buy and sell order '''
 
-		sell_index = self.market_vals.argmax()
-		buy_index = self.market_vals.argmin()
-		data = {'sell': sell_index, 'buy': buy_index}
-
-		for side, index in data.items():
+		for side, index in data:
 			coin = self.coins[index]
 			# TODO: make sure self.prices is current in backtest
 			price = self.prices[index]
