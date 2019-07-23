@@ -6,10 +6,10 @@ class Transactions:
 
     ''' Create transactions.csv if it doesn't already exist '''
     def __init__(self, portfolio):
-        try:
-            self.transactions = pd.read_JSON(TRANSACTIONS_FILE)
-        except:
-            self.transactions = pd.DataFrame(columns=COLUMNS)
+        # try:
+        #     self.transactions = pd.read_JSON(TRANSACTIONS_FILE)
+        # except:
+        #     self.transactions = pd.DataFrame(columns=COLUMNS)
 
         for coin, units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
             if self.transactions.empty or coin not in self.transactions['coin']:

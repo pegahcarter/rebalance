@@ -4,6 +4,9 @@ import py.rebalance as rebalance
 import pandas as pd
 import numpy as np
 
+df = pd.read_csv('src/assets/prices.csv')
+df = np.array(df)
+
 
 portfolio = Portfolio(COINS, PORTFOLIO_START_VALUE)
 for i in range(1, len(portfolio.hist_prices)):
@@ -11,6 +14,7 @@ for i in range(1, len(portfolio.hist_prices)):
         portfolio.date = portfolio.dates[i]
         portfolio.prices = portfolio.hist_prices[i]
         rebalance.run(portfolio)
+    rebalanced_market_val = portfolio.units.dot(portfolio.prices)
 
 
 portfolio.transactions.transactions.to_json('src/assets/transactions.json', orient='records')
