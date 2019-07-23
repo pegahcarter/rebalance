@@ -1,26 +1,24 @@
 from py.portfolio import Portfolio
 from py.variables import INTERVAL, COINS, PORTFOLIO_START_VALUE, TRANSACTIONS_FILE
 import py.rebalance as rebalance
+import itertools
 import pandas as pd
-import numpy as np
-
-df = pd.read_csv('src/assets/prices.csv')
-df = np.array(df)
-
 
 portfolio = Portfolio(COINS, PORTFOLIO_START_VALUE)
 for i in range(1, len(portfolio.hist_prices)):
     if i % INTERVAL == 0:
-        portfolio.date = portfolio.dates[i]
-        portfolio.prices = portfolio.hist_prices[i]
-        rebalance.run(portfolio)
-    rebalanced_market_val = portfolio.units.dot(portfolio.prices)
+        rebalance.run(portfolio, i)
+    # rebalanced_market_val = portfolio.units.dot(portfolio.prices)
+
+
+all_tx = list(itertools.chain(*portfolio.coins.values()))
+
+df = pd.DataFrame(all_tx)
+df.sort_values(by='id', inplace=True)
 
 
 portfolio.transactions.transactions.to_json('src/assets/transactions.json', orient='records')
 portfolio.summarize()
-
-
 
 
 

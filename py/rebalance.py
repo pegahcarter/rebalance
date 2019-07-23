@@ -1,8 +1,7 @@
-import numpy as np
 
-def run(portfolio):
+def run(portfolio, i):
 
-	market_vals = portfolio.prices * portfolio.units
+	market_vals = portfolio.hist_prices[i] * portfolio.units
 	market_val_sum = sum(market_vals)
 
 	# We'll take the coins with the highest and lowest dollar value to
@@ -12,6 +11,6 @@ def run(portfolio):
 
 	cost = trade_weight * market_val_sum
 	if cost > 20:
-		data = [['sell', market_vals.argmax()], ['buy', market_vals.argmin()]]
-		portfolio.trade(cost, data)
-		return run(portfolio)
+		portfolio.trade(side='SELL', coin_index=market_vals.argmax(), cost=cost, i=i)
+		portfolio.trade(side='BUY', coin_index=market_vals.argmin(), cost=cost, i=i)
+		return run(portfolio, i)

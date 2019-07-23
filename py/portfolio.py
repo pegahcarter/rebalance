@@ -1,7 +1,6 @@
-from py.transactions import Transactions
-from py.exchange import Exchange
+# from py.exchange import Exchange
+from datetime import datetime
 from py.variables import FEE_RATE
-from datetime import  datetime
 import pandas as pd
 import numpy as np
 
@@ -11,16 +10,15 @@ class Portfolio:
 	# exchange = Exchange()
 	FEE_RATE = FEE_RATE
 
-	def __init__(self, COINS=None, PORTFOLIO_START_VALUE=None):
+	def __init__(self, coins=None, PORTFOLIO_START_VALUE=None):
 		self.PORTFOLIO_START_VALUE = PORTFOLIO_START_VALUE
 		if PORTFOLIO_START_VALUE:
-			hist_prices = pd.read_csv('src/assets/prices.csv', usecols=['date'] + COINS)
+			hist_prices = pd.read_csv('src/assets/prices.csv', usecols=['date'] + coins)
 			self.dates = hist_prices.pop('date')
 			self.hist_prices = np.array(hist_prices)
-			# date = self.dates[0]
-			# prices = self.hist_prices[0]
-			amt_each = PORTFOLIO_START_VALUE / len(COINS)
-			units =  np.divide(amt_each, self.hist_prices[0, :])
+			prices = self.hist_prices[0]
+			amt_each = PORTFOLIO_START_VALUE / len(coins)
+			units =  np.divide(amt_each, prices)
 		# else: # This is not a simulation.  Rebalance our own portfolio.
 			# TODO: figure out how to include/ignore USDT
 			# date = datetime.now()
@@ -31,27 +29,28 @@ class Portfolio:
 
 		# self.date = date
 		self.tx_count = 0
-		self.coins = {coin: [] for coin in COINS}
-		self.avg_weight = 1.0/len(self.coins)
+		self.coins = {coin: [] for coin in coins}
+		self.avg_weight = 1.0/len(coins)
 		self.start_units = units
 		self.units = units
-		for coin, coin_units, price in zip(COINS, units, self.hist_prices[0]):
-			_add_coin(coin, coin_units, price)
+		for coin, coin_units, price in zip(coins, units, prices):
+			self._add_coin(coin, coin_units, price)
 
 
 	def _add_coin(self, coin, coin_units, price):
-		cost = coin_units * price
 		self.tx_count += 1
+		cost = coin_units * price
 		self.coins[coin].append({
-			'id': tx_count,
+			'id': self.tx_count,
 			'date': self.dates[0],
 			'coin': coin,
 			'side': 'BUY',
+			'price': price,
 			'units': coin_units,
+			'cost': cost,
 			'prev_units': 0,
 			'cum_units': coin_units,
 			'prev_cost': 0,
-			'cost': cost,
 			'cum_cost': cost,
 			# 'cost_per_unit': price
 			'fees': cost * self.FEE_RATE
@@ -59,17 +58,41 @@ class Portfolio:
 		return
 
 
+	def trade(self, side, coin_index, cost, i=None):
+		self.tx_count += 1
+		price = self.hist_prices[i, coin_index]
+		units = cost/price
+		coin = list(self.coins)[coin_index]
+		prev_units = self.coins[coin][-1]['cum_units']
+		prev_cost = self.coins[coin][-1]['cum_cost']
 
-	def trade(self, cost, data):
-		''' Executes a buy and sell order '''
+		if side == 'SELL':
+			units *= -1.0
+			cost *= -1.0
 
-		for side, index in data:
-			coin = self.coins[index]
-			price = self.prices[index]
-			units = cost/price
-			self.units[index] = self.transactions.update(side, coin, cost, units, self.date)
-			# if self.PORTFOLIO_START_VALUE is None:
-			# 	exchange.create_order(coin, side, units)
+		self.coins[coin].append({
+			'id': self.tx_count,
+			'date': self.dates[i],
+			'coin': coin,
+			'side': side,
+			'price': price,
+			'units': units,
+			'cost': cost,
+			'prev_units': prev_units,
+			'cum_units': prev_units + units,
+			'prev_cost': prev_cost,
+			'cum_cost': prev_cost + cost,
+			'fees': abs(cost) * self.FEE_RATE
+			# 'cost_per_unit': cost_per_unit,
+			# 'pnl_realised_d_amt': ???,
+			# 'pnl_realised_pct': ???,
+			# 'pnl_unrealised_d_amt: ???'
+		})
+		self.units[coin_index] += units
+		# if self.PORTFOLIO_START_VALUE is None:
+		# 	exchange.create_order(coin, side, units)
+
+
 
 
 	def summarize(self):
@@ -77,19 +100,31 @@ class Portfolio:
 
 		summary = []
 		for i, coin in enumerate(self.coins):
-			tx = self.transactions.transactions.copy()
-			coin_df = tx[tx['coin'] == coin]
+			price = self.hist_prices[-1, i]
+			units = self.coins[coin][-1]['cum_units']
+			cost = self.coins[coin][-1]['cum_cost']
 			summary.append({
 				'coin': coin,
-				'price': self.prices[i],
-				'units': self.units[i],
-				'cost': coin_df.iloc[-1]['cum_cost'],
+				'price': price,
+				'units': units,
+				'cost': cost,
+				'market_val': price * units
 				# 'unit_cost': ???,
 				# 'pnl_unrealised_d_amt': ???,
 				# 'pnl_unrealised_pct': ???,
 				# 'pnl_realised_d_amt': ???,
 				# 'gain_loss': ???,
-				'market_val': self.prices[i] * self.units[i]
 			})
 		summary = pd.DataFrame(summary)
 		summary.to_json('src/assets/coins.json', orient='records')
+
+
+
+# Old code from transactions.py.  Keeping for future reference
+# try:
+#     self.transactions = pd.read_JSON(TRANSACTIONS_FILE)
+# except:
+#     self.transactions = pd.DataFrame(columns=COLUMNS)
+# for coin, units, price in zip(portfolio.coins, portfolio.units, portfolio.prices):
+# 	if self.transactions.empty or coin not in self.transactions['coin']:
+# 		self._add_coin(coin, units, price, portfolio.date)
