@@ -13,14 +13,26 @@ portfolio.transactions.transactions.to_json('src/assets/transactions.json', orie
 portfolio.summarize()
 
 
-# hr_totals = [PORTFOLIO_START_VALUE]
-# transactions.initialize(TRANSACTIONS_FILE, PORTFOLIO_START_VALUE, coins)
-# simulations = pd.DataFrame(columns=['timestamp', 'hodl', 'rebalanced'])
-#
-# for index, row in prices.iterrows():
-#     if index % INTERVAL == 0:
-#         portfolio = rebalance.run(coins)
-#
-#     # Append hodl total value
-#
-#     # Append rebalanced total value
+# Code to create simulated non-rebalanced portfolio
+import pandas as pd
+portfolio_lame = Portfolio(COINS, PORTFOLIO_START_VALUE)
+
+test = pd.read_csv('src/assets/prices.csv', usecols=['date'] + COINS)
+a = test.pop('date')
+
+
+portfolio_lame.units
+
+
+
+hr_totals = [PORTFOLIO_START_VALUE]
+transactions.initialize(TRANSACTIONS_FILE, PORTFOLIO_START_VALUE, coins)
+simulations = pd.DataFrame(columns=['timestamp', 'hodl', 'rebalanced'])
+
+for index, row in prices.iterrows():
+    if index % INTERVAL == 0:
+        portfolio = rebalance.run(coins)
+
+    # Append hodl total value
+
+    # Append rebalanced total value

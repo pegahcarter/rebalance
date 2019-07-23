@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Coins from './components/Coins';
 import Simulate from './components/Simulate';
 import Transactions from './components/Transactions';
-// import Graph from './components/Graph';
+import Graph from './components/Graph';
 
 
 export default class App extends Component {
@@ -21,6 +21,7 @@ export default class App extends Component {
       <div style={{ marginLeft: '10%', marginRight: '10%' , marginTop: 100}}>
         <div>
           <Coins />
+          <Graph />
           <Simulate submit={this.submitSimulate} />
         </div>
         <Transactions />

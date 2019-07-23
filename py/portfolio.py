@@ -7,15 +7,15 @@ import numpy as np
 class Portfolio:
 	'''	Represents our account balance on Binance '''
 
-	hist_prices = pd.read_csv('src/assets/prices.csv')
-	dates = hist_prices['date'].tolist()
 	exchange = Exchange()
 
 	def __init__(self, COINS=None, PORTFOLIO_START_VALUE=None):
 		self.PORTFOLIO_START_VALUE = PORTFOLIO_START_VALUE
 		if PORTFOLIO_START_VALUE:
+			hist_prices = pd.read_csv('src/assets/prices.csv', usecols=['date'] + COINS)
+			self.dates = hist_prices.pop('date')
+			self.hist_prices = np.array(hist_prices))
 			date = self.dates[0]
-			self.hist_prices = np.array(self.hist_prices[COINS])
 			prices = self.hist_prices[0]
 			amt_each = PORTFOLIO_START_VALUE / len(COINS)
 			units =  np.divide(amt_each, self.hist_prices[0])

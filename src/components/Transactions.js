@@ -67,6 +67,7 @@ export default class Transactions extends Component {
         <ReactTable
           columns={columns}
           data={transactions}
+          className="-striped -highlight"
         >
         </ReactTable>
       </div>
