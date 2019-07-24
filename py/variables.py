@@ -17,7 +17,7 @@ SLIPPAGE = 0.005
 PORTFOLIO_START_VALUE = 5000
 
 # Hour interval to rebalance
-INTERVAL = 12
+INTERVAL = 1
 
 # Column names for transactions.json
 COLUMNS = [
@@ -40,3 +40,4 @@ COLUMNS = [
 
 TRANSACTIONS_FILE = 'src/assets/transactions.json'
 SUMMARY_FILE = 'src/assets/summary.json'
+SIM_RESULTS_FILE = 'src/assets/sim_results.json'

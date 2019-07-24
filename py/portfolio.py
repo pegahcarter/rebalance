@@ -33,7 +33,7 @@ class Portfolio:
 		self.tx_count = 0
 		self.coins = {coin: [] for coin in coins}
 		self.avg_weight = 1.0/len(coins)
-		self.start_units = units
+		self.start_units = units.copy()
 		self.units = units
 		for coin, coin_units, price in zip(coins, units, prices):
 			self._add_coin(coin, coin_units, price)
