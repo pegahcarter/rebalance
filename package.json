@@ -12,7 +12,8 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-table": "^6.10.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "victory": "^32.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
