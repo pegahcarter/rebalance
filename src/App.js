@@ -4,8 +4,13 @@ import React, { Component } from 'react';
 import Summary from './components/Summary';
 import Simulate from './components/Simulate';
 import Transactions from './components/Transactions';
-import Graph from './components/Graph';
+import Chart from './components/Chart';
 
+// <div>
+//   <Summary />
+//   <Simulate submit={this.submitSimulate} />
+// </div>
+// <Transactions />
 
 export default class App extends Component {
   constructor(props){
@@ -19,11 +24,7 @@ export default class App extends Component {
   render() {
     return (
       <div style={{ marginLeft: '10%', marginRight: '10%' , marginTop: 100}}>
-        <div>
-          <Summary />
-          <Simulate submit={this.submitSimulate} />
-        </div>
-        <Transactions />
+        <Chart />
       </div>
     );
   }
