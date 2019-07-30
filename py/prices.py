@@ -31,4 +31,7 @@ for coin in coins:
 
 
 df['date'] = [start + timedelta(hours=i) for i in range(len(df))]
+df['date'] = [x.isoformat() for x in df['date']]
+# df['date'] = [x.strftime('%Y-%m-%d') for x in df['date']]
+
 df.to_csv('src/assets/prices.csv', index=False)

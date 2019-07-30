@@ -9,7 +9,7 @@ export default class Simulate extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ display: 'inline-block', float: 'right', paddingLeft: '10%', paddingTop: '2%' }}>
         <div className="d-flex justify-content-end">
           <ButtonToolbar>
             <ToggleButtonGroup type="checkbox" defaultValue={[1,2,3,4]}>

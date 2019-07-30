@@ -10,7 +10,7 @@ def run(portfolio, i):
 						max(market_vals)/market_val_sum - portfolio.avg_weight])
 
 	cost = trade_weight * market_val_sum
-	if cost > 20:
+	if cost > 10:
 		portfolio.trade(side='SELL', coin_index=market_vals.argmax(), cost=cost, i=i)
 		portfolio.trade(side='BUY', coin_index=market_vals.argmin(), cost=cost, i=i)
 		return run(portfolio, i)

@@ -16,9 +16,10 @@ export default class Transactions extends Component {
   render() {
     const { transactions } = this.state;
     return (
-      <div style={{ marginTop: 100}}>
+      <div style={{ marginTop: '1%'}}>
         <ReactTable
           data={transactions}
+          defaultPageSize={5}
           className="-striped -highlight"
           columns={[{
               Header: 'Trade ID',
@@ -28,6 +29,7 @@ export default class Transactions extends Component {
             {
               Header: 'Date',
               accessor: 'date',
+              // Cell: props => new Date(props)
             },
             {
               Header: 'Coin',

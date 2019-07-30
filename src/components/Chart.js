@@ -2,21 +2,27 @@ import React, {Component} from 'react';
 import {VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip, VictoryLegend} from 'victory';
 import results from '../assets/sim_results.json';
 
-var hodl = []
-var rebalanced = []
 
-for (var i in results.hodl) {
-  hodl.push({y: results.hodl[i]});
-  rebalanced.push({y:
-    results.rebalanced[i]});
-}
 export default class Chart extends Component {
 
   render() {
 
+    var hodl = []
+    var rebalanced = []
+    for (var i in results.hodl) {
+      let current_date = new Date(results.date[i]);
+      hodl.push({
+        y: results.hodl[i]
+      });
+      rebalanced.push({
+        y: results.rebalanced[i]
+      });
+    }
+
     return (
-      <div>
+      <div style={{ display: 'inline-block', width: '35%', float: 'right' }}>
         <VictoryChart
+          height={250}
           animate={{ duration: 1000 }}
           minDomain={{ y: 0}}
           containerComponent={
@@ -35,7 +41,7 @@ export default class Chart extends Component {
           <VictoryLegend x={75}
             orientation='horizontal'
             gutter={20}
-            style={{ border: { stroke: 'black' } }}
+            style={{ border: { stroke: 'black' }}}
             data={[
               { name: 'HODL', symbol: { fill: 'red' } },
               { name: 'Rebalanced', symbol: { fill: 'blue' } }

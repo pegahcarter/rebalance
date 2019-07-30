@@ -6,11 +6,7 @@ import Simulate from './components/Simulate';
 import Transactions from './components/Transactions';
 import Chart from './components/Chart';
 
-// <div>
-//   <Summary />
-//   <Simulate submit={this.submitSimulate} />
-// </div>
-// <Transactions />
+
 
 export default class App extends Component {
   constructor(props){
@@ -23,8 +19,13 @@ export default class App extends Component {
 
   render() {
     return (
-      <div style={{ marginLeft: '10%', marginRight: '10%' , marginTop: 100}}>
-        <Chart />
+      <div style={{ marginLeft: '5%', marginRight: '5%' , marginTop: '3%', fontSize: 14}}>
+        <div style={{display: 'inline-block', width: '100%'}}>
+          <Summary />
+          <Chart />
+        </div>
+        <Transactions />
+        <Simulate submit={this.submitSimulate} />
       </div>
     );
   }
