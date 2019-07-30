@@ -2,22 +2,21 @@ import React, {Component} from 'react';
 import {VictoryChart, VictoryLine, VictoryVoronoiContainer, VictoryTooltip, VictoryLegend} from 'victory';
 import results from '../assets/sim_results.json';
 
-
 var hodl = []
 var rebalanced = []
 
 for (var i in results.hodl) {
   hodl.push({y: results.hodl[i]});
-  rebalanced.push({y: results.rebalanced[i]});
+  rebalanced.push({y:
+    results.rebalanced[i]});
 }
-
-
 export default class Chart extends Component {
 
   render() {
+
     return (
       <div>
-        <VictoryChart height={400} width={500}
+        <VictoryChart
           animate={{ duration: 1000 }}
           minDomain={{ y: 0}}
           containerComponent={
