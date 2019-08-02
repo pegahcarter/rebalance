@@ -20,12 +20,7 @@ export default class App extends Component {
   render() {
     return (
       <div style={{ marginLeft: '5%', marginRight: '5%' , marginTop: '3%', fontSize: 14}}>
-        <div style={{display: 'inline-block', width: '100%'}}>
-          <Summary />
-          <Chart />
-        </div>
-        <Transactions />
-        <Simulate submit={this.submitSimulate} />
+        <Simulate />
       </div>
     );
   }
@@ -35,3 +30,10 @@ export default class App extends Component {
   }
 
 }
+
+// <div style={{display: 'inline-block', width: '100%'}}>
+//   <Summary />
+//   <Chart />
+// </div>
+// <Transactions />
+// <Simulate submit={this.submitSimulate} />
