@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 // import { ToggleButtonGroup, ButtonToolbar, ToggleButton, Button } from "react-bootstrap";
-import { Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 
 export default class Simulate extends Component {
@@ -16,6 +16,20 @@ export default class Simulate extends Component {
     return (
       <div>
         <Button onClick={this.toggleModal}>Simulate</Button>
+        <Modal show={this.state.showModal} onHide={this.toggleModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Select coins to simulate</Modal.Title>
+          </Modal.Header>
+          <Modal.Body></Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={this.toggleModal}>
+              Cancel
+            </Button>
+            <Button variant='primary' onClick={this.toggleModal}>
+              Run
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
