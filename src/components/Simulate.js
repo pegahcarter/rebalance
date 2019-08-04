@@ -1,18 +1,22 @@
 import React, { Component, useState } from 'react';
-// import { ToggleButtonGroup, ButtonToolbar, ToggleButton, Button } from "react-bootstrap";
-import { Modal, Button } from 'react-bootstrap';
+import { ToggleButtonGroup, ButtonToolbar, ToggleButton } from "react-bootstrap";
+import { Modal, Form, Button } from 'react-bootstrap';
 
 
 export default class Simulate extends Component {
   constructor(){
     super()
     this.state = {
-      showModal: false
+      showModal: false,
+      BTC: false
     }
     this.toggleModal = this.toggleModal.bind(this);
+    this.submitButton = this.submitButton.bind(this);
+    this.changeColor = this.changeColor.bind(this);
   }
 
   render() {
+
     return (
       <div>
         <Button onClick={this.toggleModal}>Simulate</Button>
@@ -20,12 +24,14 @@ export default class Simulate extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Select coins to simulate</Modal.Title>
           </Modal.Header>
-          <Modal.Body></Modal.Body>
+          <Modal.Body>
+            <button id='BTC' className='btn btn-outline-primary' onClick={this.changeColor}>BTC</button>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={this.toggleModal}>
               Cancel
             </Button>
-            <Button variant='primary' onClick={this.toggleModal}>
+            <Button variant='primary' onClick={this.submitButton}>
               Run
             </Button>
           </Modal.Footer>
@@ -35,13 +41,29 @@ export default class Simulate extends Component {
   }
 
   toggleModal() {
-    this.state.showModal === true ? this.setState({showModal: false}) : this.setState({showModal: true});
+    this.state.showModal ? this.setState({showModal: false}) : this.setState({showModal: true});
+  }
+
+  submitButton(props) {
+    this.toggleModal();
+    console.log(this.state);
+    // TODO: update each coin state to false
+  }
+
+  changeColor(props) {
+    let coin = props.target.id;
+    if (this.state[coin]) {
+      props.target.className = 'btn btn-outline-primary';
+      this.setState({ [coin]: false });
+    } else {
+      props.target.className = 'btn btn-primary';
+      this.setState({ [coin]: true });
+    }
   }
 
 }
 
 
-// this.showModal === true ? this.setState({showModal: true}) : this.setState({showModal: false});
 // <div className="d-flex justify-content-end">
 //   <ButtonToolbar>
 //     <ToggleButtonGroup type="checkbox" defaultValue={[1,2,3,4]}>
