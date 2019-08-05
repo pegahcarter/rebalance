@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react';
-import { ToggleButtonGroup, ButtonToolbar, ToggleButton } from "react-bootstrap";
-import { Modal, Form, Button } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 
 export default class Simulate extends Component {
@@ -15,8 +14,8 @@ export default class Simulate extends Component {
     }
     this.toggleModal = this.toggleModal.bind(this);
     this.submitButton = this.submitButton.bind(this);
-    this.changeColor = this.changeColor.bind(this);
     this.updateCoinState = this.updateCoinState.bind(this);
+    this.resetCoinState = this.resetCoinState.bind(this);
   }
 
   render() {
@@ -29,8 +28,8 @@ export default class Simulate extends Component {
             <Modal.Title>Select coins to simulate</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <button id='BTC' className='btn btn-outline-primary' onClick={this.changeColor}>BTC</button>
-            <button id='ETH' className='btn btn-outline-primary' onClick={this.changeColor}>ETH</button>
+            <button id='BTC' className='btn btn-outline-primary' onClick={this.updateCoinState}>BTC</button>
+            <button id='ETH' className='btn btn-outline-primary' onClick={this.updateCoinState}>ETH</button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={this.toggleModal}>
@@ -47,23 +46,28 @@ export default class Simulate extends Component {
 
   toggleModal() {
     this.state.showModal ? this.setState({showModal: false}) : this.setState({showModal: true});
+    this.resetCoinState();
   }
 
-  submitButton(props) {
+  submitButton() {
     this.toggleModal();
-    // TODO: update each coin state to false
   }
 
-  changeColor(props) {
+  updateCoinState(props) {
     let coin = props.target.id;
     this.state.coins[coin] ? props.target.className = 'btn btn-outline-primary' : props.target.className = 'btn btn-primary';
-    this.updateCoinState(coin);
-  }
-
-  updateCoinState(coin) {
     const isSelected = {...this.state.coins};
     isSelected[coin] = !isSelected[coin];
     this.setState({ coins: isSelected })
+  }
+
+
+  resetCoinState() {
+    const isSelected = {...this.state.coins};
+    Object.keys(isSelected).forEach((coin) => {
+      isSelected[coin] = false;
+      this.setState({ coins: isSelected })
+    });
   }
 
 }

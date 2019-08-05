@@ -10,7 +10,6 @@ export default class Chart extends Component {
     var hodl = []
     var rebalanced = []
     for (var i in results.hodl) {
-      let current_date = new Date(results.date[i]);
       hodl.push({
         y: results.hodl[i]
       });

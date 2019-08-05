@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactTable, { ReactTableDefaults } from 'react-table';
+import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import summary from '../assets/summary.json';
 

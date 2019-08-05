@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
-
-import Summary from './components/Summary';
 import Simulate from './components/Simulate';
-import Transactions from './components/Transactions';
-import Chart from './components/Chart';
+// import Summary from './components/Summary';
+// import Transactions from './components/Transactions';
+// import Chart from './components/Chart';
 
 
 
