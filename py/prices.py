@@ -4,7 +4,9 @@ import numpy as np
 import ccxt
 from datetime import datetime, timedelta
 
-coins = ['BTC', 'ETH', 'XRP', 'LTC', 'XLM', 'TRX', 'ADA', 'DASH']
+coins = ['BTC', 'XRP', 'ETH', 'BCH', 'ADA', 'XEM', 'LTC', 'TRX', 'XLM', 'EOS',
+         'NEO', 'ETC', 'LSK', 'DOGE', 'SNT', 'BNB', 'GNT', 'REP']
+
 binance = ccxt.binance()
 start = datetime(year=2018,month=1,day=1)
 df = pd.DataFrame([])
@@ -19,19 +21,18 @@ for coin in coins:
         ticker = coin + '/BTC'
 
     while start_date < datetime.now():
-        data = binance.fetch_ohlcv(ticker, '1h', limit=500, since=int(start_date.timestamp()*1000))
+        data = binance.fetch_ohlcv(ticker, '1h', limit=1000, since=int(start_date.timestamp()*1000))
         ohlcv_coin += data
         start_date += timedelta(hours=len(data))
 
     close_prices = np.array(ohlcv_coin)[:, 4]
-    if coin != 'BTC':
-        close_prices *= df['BTC']
-
     df[coin] = close_prices
+    if coin != 'BTC':
+        df[coin] *= df['BTC']
 
 
 df['date'] = [start + timedelta(hours=i) for i in range(len(df))]
 df['date'] = [x.isoformat() for x in df['date']]
-# df['date'] = [x.strftime('%Y-%m-%d') for x in df['date']]
 
-df.to_csv('src/assets/prices.csv', index=False)
+# NOTE: indexing is messed up when saved to JSON, so save to CSV
+df.to_csv('../prices.csv', index=False)
