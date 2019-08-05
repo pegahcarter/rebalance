@@ -8,11 +8,15 @@ export default class Simulate extends Component {
     super()
     this.state = {
       showModal: false,
-      BTC: false
+      coins: {
+        BTC: false,
+        ETH: false
+      }
     }
     this.toggleModal = this.toggleModal.bind(this);
     this.submitButton = this.submitButton.bind(this);
     this.changeColor = this.changeColor.bind(this);
+    this.updateCoinState = this.updateCoinState.bind(this);
   }
 
   render() {
@@ -26,6 +30,7 @@ export default class Simulate extends Component {
           </Modal.Header>
           <Modal.Body>
             <button id='BTC' className='btn btn-outline-primary' onClick={this.changeColor}>BTC</button>
+            <button id='ETH' className='btn btn-outline-primary' onClick={this.changeColor}>ETH</button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={this.toggleModal}>
@@ -46,19 +51,19 @@ export default class Simulate extends Component {
 
   submitButton(props) {
     this.toggleModal();
-    console.log(this.state);
     // TODO: update each coin state to false
   }
 
   changeColor(props) {
     let coin = props.target.id;
-    if (this.state[coin]) {
-      props.target.className = 'btn btn-outline-primary';
-      this.setState({ [coin]: false });
-    } else {
-      props.target.className = 'btn btn-primary';
-      this.setState({ [coin]: true });
-    }
+    this.state.coins[coin] ? props.target.className = 'btn btn-outline-primary' : props.target.className = 'btn btn-primary';
+    this.updateCoinState(coin);
+  }
+
+  updateCoinState(coin) {
+    const isSelected = {...this.state.coins};
+    isSelected[coin] = !isSelected[coin];
+    this.setState({ coins: isSelected })
   }
 
 }
