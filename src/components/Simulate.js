@@ -9,7 +9,13 @@ export default class Simulate extends Component {
       showModal: false,
       coins: {
         BTC: false,
-        ETH: false
+        ETH: false,
+        XRP: false,
+        LTC: false,
+        XLM: false,
+        TRX: false,
+        ADA: false,
+        BNB: false
       }
     }
     this.toggleModal = this.toggleModal.bind(this);
@@ -19,7 +25,6 @@ export default class Simulate extends Component {
   }
 
   render() {
-
     return (
       <div>
         <Button onClick={this.toggleModal}>Simulate</Button>
@@ -28,8 +33,18 @@ export default class Simulate extends Component {
             <Modal.Title>Select coins to simulate</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <button id='BTC' className='btn btn-outline-primary' onClick={this.updateCoinState}>BTC</button>
-            <button id='ETH' className='btn btn-outline-primary' onClick={this.updateCoinState}>ETH</button>
+
+            <div style={{display: 'inline-block'
+            }}>
+            {
+              Object.keys(this.state.coins).map((coin, i) => {
+                return (
+                    <Button key={coin} variant='outline-primary' id={coin} onClick={this.updateCoinState} style={{margin: '5%', width: '15%'}}>{coin}</Button>
+                )
+              })
+            }
+          </div>
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={this.toggleModal}>
@@ -72,6 +87,8 @@ export default class Simulate extends Component {
 
 }
 
+// <button id='BTC' className='btn btn-outline-primary' onClick={this.updateCoinState}>BTC</button>
+// <button id='ETH' className='btn btn-outline-primary' onClick={this.updateCoinState}>ETH</button>
 
 // <div className="d-flex justify-content-end">
 //   <ButtonToolbar>
