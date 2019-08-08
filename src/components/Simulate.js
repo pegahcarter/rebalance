@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { PythonShell } from 'python-shell';
+import prices from '../assets/prices.json';
+delete prices.date;
 
 
 export default class Simulate extends Component {
   constructor(){
     super()
+    let coinDict = {}
+    Object.keys(prices).forEach((coin) => {
+      coinDict[coin] = false;
+    })
     this.state = {
       showModal: false,
-      coins: {
-        BTC: false,
-        ETH: false,
-        XRP: false,
-        LTC: false,
-        XLM: false,
-        TRX: false,
-        ADA: false,
-        BNB: false
-      }
+      simCoins: [],
+      coins: coinDict,
     }
     this.toggleModal = this.toggleModal.bind(this);
     this.submitButton = this.submitButton.bind(this);
@@ -25,6 +24,7 @@ export default class Simulate extends Component {
   }
 
   render() {
+
     return (
       <div>
         <Button onClick={this.toggleModal}>Simulate</Button>
@@ -35,7 +35,7 @@ export default class Simulate extends Component {
           <Modal.Body>
             <div style={{display: 'inline-block'}}>
               {
-                Object.keys(this.state.coins).map((coin, i) => {
+                Object.keys(this.state.coins).map((coin) => {
                   return (
                     <Button
                       key={coin}
@@ -46,7 +46,7 @@ export default class Simulate extends Component {
                     >
                       {coin}
                     </Button>
-                  )
+                  );
                 })
               }
             </div>
@@ -70,8 +70,19 @@ export default class Simulate extends Component {
   }
 
   submitButton() {
-    console.log(this.state.coins)
     this.toggleModal();
+    let simCoins = []
+    Object.keys(this.state.coins).forEach((coin) => {
+      if (this.state.coins[coin] === true) { simCoins.push(coin) }
+    });
+    let options: {
+      pythonPath: 'C:/Users/carter/AppData/Local/Programs/Python/Python37-32',
+      scriptPath: 'C:/Users/carter/AppData/Local/Programs/Python/Python37-32/Lib/site-packages',
+      args: [simCoins]
+    }
+    PythonShell.run('C:/Users/carter/Documents/crypto/rebalance/py/simulate.py', options, function(err, results) {
+      if (err) throw err;
+    });
   }
 
   updateCoinState(props) {
@@ -79,14 +90,14 @@ export default class Simulate extends Component {
     this.state.coins[coin] ? props.target.className = 'btn btn-outline-primary' : props.target.className = 'btn btn-primary';
     const isSelected = {...this.state.coins};
     isSelected[coin] = !isSelected[coin];
-    this.setState({ coins: isSelected })
+    this.setState({ coins: isSelected });
   }
 
   resetCoinState() {
     const isSelected = {...this.state.coins};
     Object.keys(isSelected).forEach((coin) => {
       isSelected[coin] = false;
-      this.setState({ coins: isSelected })
+      this.setState({ coins: isSelected });
     });
   }
 
