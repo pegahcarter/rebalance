@@ -1,16 +1,6 @@
 # rebalance
-### Contributors: Chris Wallwork, Carter Carlson
-
-### Project Goals
-* React front end
-* Display coin transactions and summaries in a clean, easy to understand
-format
-* Functional product to rebalance personal funds or simulate rebalance
-* Allow users to select which coins/dates they want to simulate
 
 ### Current Project Status
-So far, we're able to simulate purchasing 5 coins and rebalancing them over a specific
-period of time.  More to come.
 ![Current front end](data/screenshots/2019.07.30.PNG)
 
 ---
@@ -24,7 +14,6 @@ This repository merges two similar repositories:
 * __[transaction-log](https://github.com/cartercarlson/transaction-log)__
   * Rebalances a specific basket of coins and captures details of the transactions
   * Can be simulated or used for personal rebalancing
-
 
 ### Repository Comparison
 While the two repositories have similar purposes, they were made separately and have different code structures.
@@ -51,3 +40,11 @@ While the two repositories have similar purposes, they were made separately and 
   * _transaction-log_:
     * Cannot scale to multiple backtests
     * Portfolio methods should be inside the class, not outside functions
+
+
+### Project Goals
+* React front end
+* Display coin transactions and summaries in a clean, easy to understand
+format
+* Functional product to rebalance personal funds or simulate rebalance
+* Allow users to select which coins/dates they want to simulate
