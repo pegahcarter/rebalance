@@ -38,12 +38,6 @@ export default class Coins extends Component {
             Cell: props => props.value.toFixed(4)
           },
           {
-            Header: 'Cost ($)',
-            accessor: 'cost',
-            width: '5%',
-            Cell: props => props.value.toFixed(2)
-          },
-          {
             Header: 'Market Value ($) ',
             accessor: 'market_val',
             width: '5%',
@@ -54,6 +48,15 @@ export default class Coins extends Component {
     );
   }
 }
+
+
+
+
+// TODO: Create new Material table
+// https://material-table.com/#/docs/features/remote-data
+
+
+
 
 // Sort of working code to color cells green
 // Cell: props => (
