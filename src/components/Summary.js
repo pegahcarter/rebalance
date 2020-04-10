@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 import summary from '../assets/summary.json';
 
 
-export default class Coins extends Component {
+// https://material-table.com/#/docs/features/remote-data
+import MaterialTable from 'material-table';
+
+export default class Summary extends Component {
 
   constructor(props) {
     super(props);
@@ -16,45 +17,90 @@ export default class Coins extends Component {
   render() {
     const { summary } = this.state;
     return (
-      <div style={{width:'40%', display: 'inline-block'}}>
-        <ReactTable
-          data={summary}
-          defaultPageSize={summary.length}
-          columns={[{
-            Header: 'Coin',
-            accessor: 'coin',
-            width: '5%'
+      <MaterialTable
+        title='Summary'
+        columns={[
+          {
+            title: 'Coin',
+            field: 'coin',
           },
           {
-            Header: 'Current Price',
-            accessor: 'price',
-            width: '5%',
-            Cell: props => props.value.toFixed(2)
+            title: 'Current Price',
+            field: 'price',
+            type: 'currency'
           },
           {
-            Header: 'Units',
-            accessor: 'units',
+            title: 'Units',
+            field: 'units',
             width: '5%',
-            Cell: props => props.value.toFixed(4)
           },
           {
-            Header: 'Market Value ($) ',
-            accessor: 'market_val',
+            title: 'Market Value',
+            field: 'market_val',
             width: '5%',
-            Cell: props => props.value.toFixed(2)
-          }]}
-        />
-      </div>
-    );
+            type: 'currency'
+          }
+        ]}
+        data={summary}
+        showPagination={false}
+        options={{
+          search: false,
+          paging: false
+        }}
+        style={{width: 600, display: 'inline-block'}}
+      />
+    )
   }
 }
 
 
 
 
-// TODO: Create new Material table
-// https://material-table.com/#/docs/features/remote-data
-
+// NOTE: old version
+// export default class Coins extends Component {
+//
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       summary: summary
+//     }
+//   }
+//
+//   render() {
+//     const { summary } = this.state;
+//     return (
+//       <div style={{width:'40%', display: 'inline-block'}}>
+//         <ReactTable
+//           data={summary}
+//           defaultPageSize={summary.length}
+//           columns={[{
+//             Header: 'Coin',
+//             accessor: 'coin',
+//             width: '5%'
+//           },
+//           {
+//             Header: 'Current Price',
+//             accessor: 'price',
+//             width: '5%',
+//             Cell: props => props.value.toFixed(2)
+//           },
+//           {
+//             Header: 'Units',
+//             accessor: 'units',
+//             width: '5%',
+//             Cell: props => props.value.toFixed(4)
+//           },
+//           {
+//             Header: 'Market Value ($) ',
+//             accessor: 'market_val',
+//             width: '5%',
+//             Cell: props => props.value.toFixed(2)
+//           }]}
+//         />
+//       </div>
+//     );
+//   }
+// }
 
 
 
