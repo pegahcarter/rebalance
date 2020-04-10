@@ -15,9 +15,9 @@ class Portfolio:
 	def __init__(self, coins=None, PORTFOLIO_START_VALUE=None):
 		self.PORTFOLIO_START_VALUE = PORTFOLIO_START_VALUE
 		if PORTFOLIO_START_VALUE:
-			hist_prices = pd.read_csv('src/assets/prices.csv', usecols=['date'] + coins)
-			self.dates = hist_prices.pop('date')
-			self.hist_prices = np.array(hist_prices)
+			prices = pd.read_csv('src/assets/prices.csv')
+			self.dates = prices['date'].values
+			self.hist_prices = prices[coins]
 			prices = self.hist_prices[0]
 			amt_each = PORTFOLIO_START_VALUE / len(coins)
 			units =  np.divide(amt_each, prices)
@@ -29,7 +29,6 @@ class Portfolio:
 			# prices = np.array([self.exchange.fetch_price(coin) for coin in coins])
 			# units = balance.values()
 
-		# self.date = date
 		self.tx_count = 0
 		self.coins = {coin: [] for coin in coins}
 		self.avg_weight = 1.0/len(coins)
@@ -52,9 +51,6 @@ class Portfolio:
 			'cost': cost,
 			'prev_units': 0,
 			'cum_units': coin_units,
-			'prev_cost': 0,
-			'cum_cost': cost,
-			# 'cost_per_unit': price
 			'fees': cost * self.FEE_RATE
 		})
 		return
@@ -82,13 +78,7 @@ class Portfolio:
 			'cost': cost,
 			'prev_units': prev_units,
 			'cum_units': prev_units + units,
-			'prev_cost': prev_cost,
-			'cum_cost': prev_cost + cost,
 			'fees': abs(cost) * self.FEE_RATE
-			# 'cost_per_unit': cost_per_unit,
-			# 'pnl_realised_d_amt': ???,
-			# 'pnl_realised_pct': ???,
-			# 'pnl_unrealised_d_amt: ???'
 		})
 		self.units[coin_index] += units
 		# if self.PORTFOLIO_START_VALUE is None:
@@ -113,16 +103,12 @@ class Portfolio:
 				'coin': coin,
 				'price': price,
 				'units': units,
-				'cost': cost,
 				'market_val': price * units
-				# 'unit_cost': ???,
-				# 'pnl_unrealised_d_amt': ???,
-				# 'pnl_unrealised_pct': ???,
-				# 'pnl_realised_d_amt': ???,
-				# 'gain_loss': ???,
 			})
+
 		summary = pd.DataFrame(summary)
 		summary.to_json(SUMMARY_FILE, orient='records')
+
 		return
 
 
