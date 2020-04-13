@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import MaterialTable from 'material-table';
+
 import transactions from '../assets/transactions.json';
 
 
@@ -16,66 +16,55 @@ export default class Transactions extends Component {
   render() {
     const { transactions } = this.state;
     return (
-      <div style={{ marginTop: '1%'}}>
-        <ReactTable
+        <MaterialTable
           data={transactions}
-          defaultPageSize={5}
-          className="-striped -highlight"
-          columns={[{
-              Header: 'Trade ID',
-              accessor: 'id',
+          title='Transactions'
+          showPagination={false}
+          options={{
+            pageSize: 10,
+          }}
+          columns={[
+            {
+              title: 'Trade ID',
+              field: 'id',
               width: 100
             },
             {
-              Header: 'Date',
-              accessor: 'date',
-              // Cell: props => new Date(props)
+              title: 'Date',
+              field: 'date',
+              type: 'date'
             },
             {
-              Header: 'Coin',
-              accessor: 'coin'
+              title: 'Coin',
+              field: 'coin'
             },
             {
-              Header: 'Side',
-              accessor: 'side'
+              title: 'Side',
+              field: 'side'
             },
             {
-              Header: 'Units',
-              accessor: 'units',
-              Cell: props => props.value.toFixed(4)
+              title: 'Units',
+              field: 'units',
             },
             {
-              Header: 'Cost ($)',
-              accessor: 'cost',
-              Cell: props => props.value.toFixed(2)
+              title: 'Cost',
+              field: 'cost',
+              type: 'currency'
             },
             {
-              Header: 'Previous Units',
-              accessor: 'prev_units',
-              Cell: props => props.value.toFixed(4)
+              title: 'Previous Units',
+              field: 'prev_units',
             },
             {
-              Header: 'Cumulative Units',
-              accessor: 'cum_units',
-              Cell: props => props.value.toFixed(4)
+              title: 'Cumulative Units',
+              field: 'cum_units',
             },
             {
-              Header: 'Previous Cost ($)',
-              accessor: 'prev_cost',
-              Cell: props => props.value.toFixed(2)
-            },
-            {
-              Header: 'Cumulative Cost ($)',
-              accessor: 'cum_cost',
-              Cell: props => props.value.toFixed(2)
-            },
-            {
-              Header: 'Fees ($)',
-              accessor: 'fees',
-              Cell: props => props.value.toFixed(2)
+              title: 'Fees',
+              field: 'fees',
+              type: 'currency'
           }]}
         />
-      </div>
     );
   }
 }
