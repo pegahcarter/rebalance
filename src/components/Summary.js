@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import MaterialTable from 'material-table';
+
 import summary from '../assets/summary.json';
 
-
-// https://material-table.com/#/docs/features/remote-data
-import MaterialTable from 'material-table';
 
 export default class Summary extends Component {
 
@@ -17,38 +16,41 @@ export default class Summary extends Component {
   render() {
     const { summary } = this.state;
     return (
-      <MaterialTable
-        title='Summary'
-        columns={[
-          {
-            title: 'Coin',
-            field: 'coin',
-          },
-          {
-            title: 'Current Price',
-            field: 'price',
-            type: 'currency'
-          },
-          {
-            title: 'Units',
-            field: 'units',
-            width: '5%',
-          },
-          {
-            title: 'Market Value',
-            field: 'market_val',
-            width: '5%',
-            type: 'currency'
-          }
-        ]}
-        data={summary}
-        showPagination={false}
-        options={{
-          search: false,
-          paging: false
-        }}
-        style={{width: 600, display: 'inline-block'}}
-      />
+      <div style={{width: '40%', display: 'inline-block'}}>
+        <MaterialTable
+          data={summary}
+          title='Summary'
+          showPagination={false}
+          options={{
+            search: false,
+            paging: false
+          }}
+          columns={[
+            {
+              title: 'Coin',
+              field: 'coin',
+              'width': '20%'
+            },
+            {
+              title: 'Price',
+              field: 'price',
+              width: '10%',
+              type: 'currency'
+            },
+            {
+              title: 'Units',
+              field: 'units',
+              width: '5%',
+            },
+            {
+              title: 'Market Value',
+              field: 'market_val',
+              width: '15%',
+              type: 'currency'
+            }
+          ]}
+        />
+      </div>
     )
   }
 }
