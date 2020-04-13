@@ -62,7 +62,7 @@ class Portfolio:
 		units = cost/price
 		coin = list(self.coins)[coin_index]
 		prev_units = self.coins[coin][-1]['cum_units']
-		prev_cost = self.coins[coin][-1]['cum_cost']
+		# prev_cost = self.coins[coin][-1]['cum_cost']
 
 		if side == 'SELL':
 			units *= -1.0
