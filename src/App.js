@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 import Simulate from './components/Simulate';
-// import Summary from './components/Summary';
-// import Transactions from './components/Transactions';
-// import Chart from './components/Chart';
-
+import Summary from './components/Summary';
+import Transactions from './components/Transactions';
+import Chart from './components/Chart';
+import Ethereum from './components/Ethereum';
 
 
 export default class App extends Component {
@@ -18,9 +18,19 @@ export default class App extends Component {
 
   render() {
     return (
-      <div style={{ marginLeft: '5%', marginRight: '5%' , marginTop: '3%', fontSize: 14}}>
-        <Simulate />
+      <div>
+        Hello
       </div>
+      // <React.Fragment>
+      //   <div style={{marginLeft: 100, marginTop: 150}}>
+      //     <Summary />
+      //     <Chart />
+      //   </div>
+      //   <div style={{margin: 100}}>
+      //     <Transactions />
+      //   </div>
+      //   <Simulate submit={this.submitSimulate}/>
+      // </React.Fragment>
     );
   }
 
@@ -29,10 +39,3 @@ export default class App extends Component {
   }
 
 }
-
-// <div style={{display: 'inline-block', width: '100%'}}>
-//   <Summary />
-//   <Chart />
-// </div>
-// <Transactions />
-// <Simulate submit={this.submitSimulate} />
