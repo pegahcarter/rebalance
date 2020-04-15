@@ -18,9 +18,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        Hello
-      </div>
+      <Ethereum />
       // <React.Fragment>
       //   <div style={{marginLeft: 100, marginTop: 150}}>
       //     <Summary />
