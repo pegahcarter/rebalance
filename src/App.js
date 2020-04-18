@@ -4,7 +4,7 @@ import Simulate from './components/Simulate';
 import Summary from './components/Summary';
 import Transactions from './components/Transactions';
 import Chart from './components/Chart';
-import Ethereum from './components/Ethereum';
+// import Ethereum from './components/Ethereum';
 
 
 export default class App extends Component {
@@ -18,17 +18,16 @@ export default class App extends Component {
 
   render() {
     return (
-      <Ethereum />
-      // <React.Fragment>
-      //   <div style={{marginLeft: 100, marginTop: 150}}>
-      //     <Summary />
-      //     <Chart />
-      //   </div>
-      //   <div style={{margin: 100}}>
-      //     <Transactions />
-      //   </div>
-      //   <Simulate submit={this.submitSimulate}/>
-      // </React.Fragment>
+      <React.Fragment>
+        <div style={{marginLeft: 100, marginTop: 150}}>
+          <Summary />
+          <Chart />
+        </div>
+        <div style={{margin: 100}}>
+          <Transactions />
+        </div>
+        <Simulate submit={this.submitSimulate}/>
+      </React.Fragment>
     );
   }
 

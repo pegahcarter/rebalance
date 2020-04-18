@@ -1,18 +1,25 @@
 {
   "name": "rebalance",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://carlfarterson.github.io/rebalance",
   "dependencies": {
-    "@material-ui/core": "^4.9.9",
+    "@material-ui/core": "^4.9.10",
     "@material-ui/pickers": "^3.2.10",
+    "@truffle/hdwallet-provider": "^1.0.34",
+    "bignumber.js": "^9.0.0",
     "bootstrap": "^4.3.1",
     "canvasjs": "^1.8.1",
     "chart.js": "^2.8.0",
     "child_process": "^1.0.2",
     "core-js": "^3.1.4",
+    "fibers": "^4.0.2",
+    "fs": "0.0.1-security",
     "jquery": "^3.4.1",
+    "jss": "^10.1.1",
     "material-table": "^1.57.2",
     "mdbreact": "^4.18.0",
+    "node-sass": "^4.13.1",
     "numjs": "^0.16.0",
     "python-shell": "^1.0.8",
     "react": "^16.8.6",
@@ -23,14 +30,20 @@
     "react-scripts": "^3.4.1",
     "react-table": "^6.10.0",
     "recharts": "^1.6.2",
+    "scrypt": "^6.0.3",
     "typescript": "^3.5.3",
-    "victory": "^32.3.3"
+    "victory": "^32.3.3",
+    "web3": "^1.2.6",
+    "yaml": "^1.8.3",
+    "yamljs": "^0.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"    
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +61,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-export-default-from": "^7.5.2"
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "gh-pages": "^2.2.0"
   }
 }

@@ -19,9 +19,11 @@ export default class Transactions extends Component {
         <MaterialTable
           data={transactions}
           title='Transactions'
-          showPagination={false}
+          Pagination={false}
           options={{
             pageSize: 10,
+            search: false,
+            paging: true
           }}
           columns={[
             {
