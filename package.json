@@ -19,7 +19,7 @@
     "jss": "^10.1.1",
     "material-table": "^1.57.2",
     "mdbreact": "^4.18.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "numjs": "^0.16.0",
     "python-shell": "^1.0.8",
     "react": "^16.8.6",
