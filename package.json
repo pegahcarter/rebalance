@@ -29,10 +29,10 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.4.1",
     "react-table": "^6.10.0",
-    "recharts": "^1.6.2",
+    "recharts": "^2.5.0",
     "scrypt": "^6.0.3",
     "typescript": "^3.5.3",
-    "victory": "^32.3.3",
+    "victory": "^36.6.8",
     "web3": "^1.2.6",
     "yaml": "^1.8.3",
     "yamljs": "^0.3.0"
